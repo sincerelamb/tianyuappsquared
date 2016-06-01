@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    android:orientation="vertical"
+    tools:context="com.tygas.tianyu.tianyu.ui.view.activity.UrlSetActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/appBlue">
+
+        <ImageView
+            android:id="@+id/activity_urlset_iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_selector"
+            android:onClick="onClick"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="当前接口"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/activity_urlset_old_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:maxLines="2"
+            android:maxWidth="250dp"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="新接口"
+            android:textSize="16sp" />
+
+
+        <EditText
+            android:id="@+id/activity_urlset_ed_ip"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:hint="域名/IP(必填)"
+            android:inputType="textUri"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="："
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/activity_urlset_ed_duankou"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="/"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/activity_urlset_ed_interface"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:inputType="textWebEmailAddress"
+            android:hint="必填"
+            android:textColorHint="#cccccc"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="22"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="例如：113.123.259.88:1999/OS"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical|right"
+            android:text="端口号"
+            android:textColor="@color/appOrange"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical|right"
+            android:text="虚拟目录"
+            android:textColor="@color/appOrange"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="店址编号:"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <EditText
+            android:id="@+id/activity_urlset_ed_shopnumber"
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:maxLength="20"
+            android:paddingRight="5dp"
+            android:layout_height="match_parent"
+            android:hint="必填"
+            android:textColorHint="#cccccc"
+            android:gravity="center_vertical|right"
+            android:textSize="16sp"
+            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            />
+        </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/activity_urlset_tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/urlset_save_select"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="保存"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

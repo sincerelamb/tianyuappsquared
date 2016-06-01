@@ -1,0 +1,19 @@
+package com.tygas.tianyu.tianyu.data;
+
+/**
+ * Created by SJTY_YX on 2016/1/20.
+ */
+public class UrlData {
+
+    //app根路径
+    public static final String APP_ROOT_PATH = "http://118.123.249.59:1999/OpenService/App.aspx";
+
+    //登录的url
+    public static final String LOGIN_URL = APP_ROOT_PATH+"?type=login";
+
+    //意向客户
+    public static final String PCVLIST_URL = APP_ROOT_PATH+"?type=pcvlist";
+
+
+
+}

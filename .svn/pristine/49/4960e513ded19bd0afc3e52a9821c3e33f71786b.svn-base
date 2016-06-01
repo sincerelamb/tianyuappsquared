@@ -1,0 +1,66 @@
+package com.tygas.tianyu.tianyu.data;
+
+/**
+ * Created by SJTY_YX on 2016/1/20.
+ */
+public class UrlData {
+
+    //app根路径
+    public static String VIRTUALADDRESS = "APP";
+    public static String APP_IP =
+            "carbase.tian028.com:80" +
+                    "/" + VIRTUALADDRESS;
+    public static String APP_ROOT_PATH = "http://" + APP_IP + "/OpenService/App.aspx";
+    //登录的url
+
+    public static String LOGIN_URL = APP_ROOT_PATH + "?type=login";
+    //意向客户
+    public static String PCVLIST_URL = APP_ROOT_PATH + "?type=pcvlist";
+    //意向客户跟进过程请求
+    public static String PC_URL = APP_ROOT_PATH + "?type=pc";
+    //回访请求
+    public static String VISIT_URL = APP_ROOT_PATH + "?type=visit";
+    //文件上传
+    public static String UPLOADFILE_URL = APP_ROOT_PATH + "?type=uploadfile";
+    //线索列表
+    public static String CLUELIST_URL = APP_ROOT_PATH + "?type=cluelist";
+
+    //线索跟进过程请求（明细）接口
+    public static String CLUE_URL = APP_ROOT_PATH + "?type=clue";
+
+    //线索跟踪接口
+    public static String CVISIT_URL = APP_ROOT_PATH + "?type=cvisit";
+
+    //线索录音文件
+    public static String UPLOADCLUE_URL = APP_ROOT_PATH + "?type=uploadclue";
+
+    //补全客户到店 列表 接口
+    public static String PCINFOLIST_URL = APP_ROOT_PATH + "?type=pcinfolist";
+
+    //补全客户信息
+    public static String PCINFOSAVE_URL = APP_ROOT_PATH + "?type=pcinfosave";
+
+    //补全客户到店 列表 接口
+    public static String PCINFODAFULT_URL = APP_ROOT_PATH + "?type=IsSuinfolist";
+
+    //版本接口号
+    public static String VERSON_URL = APP_ROOT_PATH + "?type=ver";
+
+    public static void reloadURL() {
+        APP_ROOT_PATH = "http://" + APP_IP + "/OpenService/App.aspx";
+        LOGIN_URL = APP_ROOT_PATH + "?type=login";
+        PCVLIST_URL = APP_ROOT_PATH + "?type=pcvlist";
+        PC_URL = APP_ROOT_PATH + "?type=pc";
+        VISIT_URL = APP_ROOT_PATH + "?type=visit";
+        UPLOADFILE_URL = APP_ROOT_PATH + "?type=uploadfile";
+        CLUE_URL = APP_ROOT_PATH + "?type=clue";
+        CLUELIST_URL = APP_ROOT_PATH + "?type=cluelist";
+        CVISIT_URL = APP_ROOT_PATH + "?type=cvisit";
+        UPLOADCLUE_URL = APP_ROOT_PATH + "?type=uploadclue";
+        PCINFOLIST_URL = APP_ROOT_PATH + "?type=pcinfolist";
+        PCINFOSAVE_URL = APP_ROOT_PATH + "?type=pcinfosave";
+        PCINFODAFULT_URL = APP_ROOT_PATH + "?type=IsSuinfolist";
+        VERSON_URL = APP_ROOT_PATH + "?type=ver";
+    }
+
+}

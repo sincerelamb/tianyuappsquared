@@ -1,0 +1,56 @@
+package com.tygas.tianyu.tianyu.context;
+
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.exception.DbException;
+import com.tygas.tianyu.tianyu.data.SharedPreferencesDate;
+import com.tygas.tianyu.tianyu.data.UrlData;
+import com.tygas.tianyu.tianyu.ui.model.PID;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.ui.model.UserPtInfoModel;
+import com.tygas.tianyu.tianyu.utils.DbUtilsHelper;
+import com.tygas.tianyu.tianyu.utils.HttpUtilsHelper;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/1/21.
+ */
+public class MyAppCollection extends Application {
+
+    public User getUser() {
+        if (user == null) {
+            return new User();
+        }
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User user;
+
+    private PhonStateLisen phonStateLisen;
+
+    public PhonStateLisen getPhonStateLisen() {
+        return phonStateLisen;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferencesDate.SHAREDPREFERENCES_NAME_SET, MODE_PRIVATE);
+        UrlData.APP_IP = sharedPreferences.getString(SharedPreferencesDate.URL_SET, UrlData.APP_IP);
+        UrlData.reloadURL();
+//        Log.d("use", user.toString());
+        phonStateLisen = new PhonStateLisen(this);
+    }
+
+}

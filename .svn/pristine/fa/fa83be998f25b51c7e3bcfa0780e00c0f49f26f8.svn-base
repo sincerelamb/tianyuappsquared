@@ -1,0 +1,89 @@
+package com.tygas.tianyu.tianyu.ui.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
+import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.model.FirstProtect;
+import com.tygas.tianyu.tianyu.ui.view.activity.FPinfoActivity;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/3/2.
+ */
+public class FirstProtectAdapter extends UltimateViewAdapter<FirstProtectAdapter.FpViewHodler> {
+
+    private List<FirstProtect> list;
+    private Context context;
+
+    public FirstProtectAdapter(Context context, List<FirstProtect> list) {
+        this.context = context;
+        this.list = list;
+    }
+
+    @Override
+    public FpViewHodler getViewHolder(View view) {
+        return new FpViewHodler(view);
+    }
+
+    @Override
+    public FpViewHodler onCreateViewHolder(ViewGroup parent) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fpcustomers_layout_item, parent, false);
+        FpViewHodler vh = new FpViewHodler(v);
+        return vh;
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return list.size();
+    }
+
+    @Override
+    public long generateHeaderId(int position) {
+        return 0;
+    }
+
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public void onBindViewHolder(FpViewHodler holder, int position) {
+        if (position >= list.size()) {
+            return;
+        }
+        holder.rl_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fp_info_intent = new Intent(context, FPinfoActivity.class);
+                context.startActivity(fp_info_intent);
+            }
+        });
+    }
+
+
+    class FpViewHodler extends UltimateRecyclerviewViewHolder {
+        private RelativeLayout rl_info;
+
+        public FpViewHodler(View itemView) {
+            super(itemView);
+            rl_info = (RelativeLayout) itemView.findViewById(R.id.item_fpcustomers_info);
+        }
+    }
+}

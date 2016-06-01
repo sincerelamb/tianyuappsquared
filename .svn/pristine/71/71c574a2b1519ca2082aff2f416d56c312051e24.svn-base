@@ -1,0 +1,428 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.Image;
+import android.os.Bundle;
+import android.provider.CallLog;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.context.MyAppCollection;
+import com.tygas.tianyu.tianyu.data.UrlData;
+import com.tygas.tianyu.tianyu.ui.adapter.PtCustomUltiRecycleAdapter;
+import com.tygas.tianyu.tianyu.ui.model.PtCustomer;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.utils.HttpUtilsHelper;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+import com.tygas.tianyu.tianyu.utils.XutilsRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+
+public class PtCustomersActivity extends Activity implements View.OnClickListener,
+                                                    UltimateRecyclerView.OnLoadMoreListener,
+                                                    SwipeRefreshLayout.OnRefreshListener {
+
+    private ImageView backImageView;//返回按钮
+
+    private UltimateRecyclerView listRecyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private PtCustomUltiRecycleAdapter adapter;
+    private ArrayList<PtCustomer> data;
+
+    private ImageView filterImageView;//筛选按钮
+
+    private User user;//登录的用户
+
+    private String name;
+    private String phone;
+    private String level;
+
+    private String empid;
+    private String begintime;
+    private String endtime;
+
+    private int pageindex;
+    private int pagesize;
+    private boolean haveMore;//时候有更多的数据
+    private PtCustomer nowCustomer;
+    private TextView loadMoreView;//加载更多的时候显示的 视图
+    private TextView emptyTextView;//没有数据的时候显示的视图
+
+
+    private static final String LOG_TAG = "PtCustomersActivity";
+    public static final int CALL_PHONE_REQUEST_CODE = 0x0002;//打电话的请求吗
+    private static final int FILTER_REQUEST_CODE = 0x0001;//筛选按钮的请求码
+
+    //private static final String PATH = "http://carbase.tian028.com/OpenService/App.aspx?type=cluelist";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_ptcustomers);
+        begintime = getNowDate();//获取当前时间
+        endtime = begintime;
+        //初始化user
+        MyAppCollection applicationContext = (MyAppCollection) getApplicationContext();
+        if(applicationContext.getUser() == null){
+            finish();
+        }else{
+            user = applicationContext.getUser();
+        }
+
+        initView();
+        initData();
+    }//end onCreate
+
+    public static void startPtCustomersActivity(Context context,String empid,
+                                                String clueName,String cluePhone,
+                                                String isExpiry,String begintime,
+                                                String endtime,String pageindex,
+                                                String pageSize){
+        Intent intent = new Intent();
+        intent.putExtra("empid",empid);
+        intent.putExtra("clueName",clueName);
+        intent.putExtra("cluePhone",cluePhone);
+        intent.putExtra("isExpiry",isExpiry);
+        intent.putExtra("begintime", begintime);
+        intent.putExtra("endtime", endtime);
+        intent.putExtra("pageindex", pageindex);
+        intent.putExtra("pagesize", pageSize);
+        intent.setClass(context, PtCustomer.class);
+        context.startService(intent);
+    }//end startPtCustomersActivity
+
+
+    public void setNowCustomer(PtCustomer nowCustomer) {
+        this.nowCustomer = nowCustomer;
+    }
+
+    public static void startPtCustomersActivity(Context context,String empid){
+        startPtCustomersActivity(context, empid, null, null, null, null, null, null, null);
+    }
+
+    private void initData() {
+        data = new ArrayList<>();
+
+        pageindex = 1;
+        pagesize = 10;
+        empid = user.getEmpId();//获取当前的empoid
+        //getDataFromNet();
+        HttpUtils httpUtils = HttpUtilsHelper.getInstance();
+        RequestParams requestParams = XutilsRequest.getPvcList(empid, name, phone, level,
+                begintime, endtime,
+                String.valueOf(pageindex), String.valueOf(pagesize));
+
+        listRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                listRecyclerView.setRefreshing(true);
+            }
+        });
+
+        httpUtils.send(HttpRequest.HttpMethod.POST, UrlData.PCVLIST_URL, requestParams, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                Log.i(LOG_TAG,"[result]"+result);
+                if(result != null && result.length() > 0){
+                    parsePtCustomers(result);
+                    Log.i(LOG_TAG, "[解析完的数据]" + data.size() + "  --> " + data);
+                    adapter = new PtCustomUltiRecycleAdapter(data,PtCustomersActivity.this);
+                    adapter.setCustomLoadMoreView(loadMoreView);
+                    loadMoreView.setVisibility(View.GONE);
+                    if(data.size() == 0){
+                        emptyTextView.setVisibility(View.VISIBLE);
+                    }else{
+                        emptyTextView.setVisibility(View.GONE);
+                    }
+                    listRecyclerView.setAdapter(adapter);
+
+                    listRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listRecyclerView.setRefreshing(false);
+                        }
+                    });
+                }else{
+                    loadMoreView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(PtCustomersActivity.this,"网络请求错误",Toast.LENGTH_SHORT).show();
+            }
+
+        });//http 请求
+
+
+        /*data = new ArrayList<>();
+        for(int i=0;i<4;i++){
+            data.add(new PtCustomer());
+        }*/
+        /*adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));*/
+    }//end initData
+
+    private void parsePtCustomers(String result) {
+        if(data == null){
+            data = new ArrayList<>();
+        }
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            String status = jsonObject.getString("status");
+            Log.i(LOG_TAG,"[返回的数据状态]"+status);
+            if("Success".equals(status)){
+                //成功返回
+                String dataStr = jsonObject.getString("data");
+                Log.i(LOG_TAG,"[返回的data]"+dataStr);
+                if(dataStr != null && dataStr.length() > 0){
+                    JSONObject obj = new JSONObject(dataStr);
+                    int totalrows = obj.getInt("totalrows");//获取总数据条数
+                    Log.i(LOG_TAG,"[返回的数据条数]"+totalrows);
+                    if(totalrows > 0 ){
+                        JSONArray arr =obj.getJSONArray("CusList");
+                        for(int i=0;i<arr.length();i++){
+                            JSONObject jobj = arr.getJSONObject(i);
+                            data.add(parsePtCustomer(jobj));
+                        }
+                        if(totalrows > data.size()){
+                            haveMore = true;
+                            pageindex++;
+                        }else{
+                            haveMore = false;
+                        }
+                    }
+                }
+            }else{
+                Toast.makeText(this,"解析出错"+jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PtCustomer parsePtCustomer(JSONObject jobj) throws JSONException {
+        PtCustomer customer = new PtCustomer();
+        customer.setCustomerId(jobj.getInt("CustomerId") + "");
+        customer.setCustomerInfoID(jobj.getInt("CustomerInfoID") + "");
+        customer.setCustomerName(jobj.getString("CustomerName"));
+        customer.setCustomerPhone(jobj.getString("CustomerPhone"));
+        customer.setEmpName(jobj.getString("EmpName"));
+        customer.setIntentLevel(jobj.getString("IntentLevel"));
+        customer.setLastContratTime(jobj.getString("LastContratTime"));
+        customer.setLastTalkProcess(jobj.getString("LastTalkProcess"));
+        customer.setCarseriesName(jobj.getString("CarseriesName"));
+        customer.setCarModelName(jobj.getString("CarModelName"));
+        customer.setColorName(jobj.getString("ColorName"));
+        customer.setSourceChannelName(jobj.getString("SourceChannelName"));
+        customer.setTurnToIntroduce(jobj.getString("TurnToIntroduce"));
+        customer.setOldCusCarNO(jobj.getString("OldCusCarNO"));
+        customer.setOtherBrandName(jobj.getString("OtherBrandName"));
+        customer.setOtherSeriesName(jobj.getString("OtherSeriesName"));
+        customer.setFailType(jobj.getString("FailType"));
+        customer.setPayType(jobj.getString("PayType"));
+        customer.setLiveProvince(jobj.getString("LiveProvince"));
+        customer.setLiveCity(jobj.getString("LiveCity"));
+        customer.setLiveArea(jobj.getString("LiveArea"));
+        customer.setChannelName(jobj.getString("ChannelName"));
+        customer.setContactType(jobj.getString("ContactType"));
+        customer.setUseageName(jobj.getString("UseageName"));
+        customer.setFocusCarModel(jobj.getString("FocusCarModel"));
+        customer.setNextCallTime(jobj.getString("NextCallTime"));
+        return customer;
+    }
+
+    private String getNowDate(){
+        Calendar cal=Calendar.getInstance();
+        int y =cal.get(Calendar.YEAR);
+        int m =cal.get(Calendar.MONTH)+1;
+        int d =cal.get(Calendar.DATE);
+        return y+"-"+m+"-"+d;
+    }
+
+    private void initView() {
+        backImageView = (ImageView) findViewById(R.id.activtiy_ptcustomers_back);
+        backImageView.setOnClickListener(this);
+
+        emptyTextView = (TextView) findViewById(R.id.activity_ptcustomers_tv_empty);
+        emptyTextView.setVisibility(View.GONE);
+
+        listRecyclerView = (UltimateRecyclerView) findViewById(R.id.activity_ptcustomers_rv_list);
+        linearLayoutManager = new LinearLayoutManager(this);
+        listRecyclerView.setLayoutManager(linearLayoutManager);
+        listRecyclerView.enableLoadmore();
+        listRecyclerView.setHasFixedSize(false);
+
+        listRecyclerView.setOnLoadMoreListener(this);
+        listRecyclerView.setDefaultOnRefreshListener(this);
+
+       /* adapter = new PtCustomUltiRecycleAdapter();
+        adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));
+        listRecyclerView.setAdapter(adapter);*/
+
+        filterImageView = (ImageView) findViewById(R.id.activtiy_clue_tv_filter);
+        filterImageView.setOnClickListener(this);
+
+        loadMoreView = new TextView(this);
+        loadMoreView.setGravity(Gravity.CENTER);
+
+
+    }//end initView
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activtiy_clue_tv_filter://点击筛选按钮
+                Intent intent = new Intent();
+                intent.setClass(this,PtCustomersFilterActivity.class);
+                startActivityForResult(intent,FILTER_REQUEST_CODE);
+                break;
+            case R.id.activtiy_ptcustomers_back://点击了返回按钮
+                finish();
+                break;
+        }//end switch
+    }//end onclick
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == CALL_PHONE_REQUEST_CODE){
+            //String da = data.getStringExtra("data");
+            //Log.i(LOG_TAG,"[通话返回的data]"+da);
+            //获取通话记录
+            ContentResolver resolver = getContentResolver();
+            Cursor query = resolver.query(CallLog.Calls.CONTENT_URI,
+                    null, null, null, CallLog.Calls.DATE + " desc limit 1");
+            query.moveToFirst();
+            String number = query.getString(query.getColumnIndex(CallLog.Calls.NUMBER));
+            long duration = query.getLong(query.getColumnIndex(CallLog.Calls.DURATION));//通话时长
+            if(number.equals(nowCustomer.getCustomerPhone()) && duration != 0){
+                Log.i(LOG_TAG,"[ok]");
+                Intent intent = new Intent();
+                intent.putExtra("data", nowCustomer);
+                intent.setClass(this,ReturnVisitOk.class);
+                startActivity(intent);
+            }else{
+                Log.i(LOG_TAG, "[fail]" + number + " " + nowCustomer.getCustomerPhone() + "  " + duration);
+                Intent intent = new Intent();
+                intent.putExtra("data", nowCustomer);
+                //intent.setClass(this, ReturnVisitFail.class);
+                intent.setClass(this,ReturnVisitOk.class);
+                startActivity(intent);
+            }
+        }
+
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case FILTER_REQUEST_CODE:
+                    if(data.getStringExtra("name") == null){
+                        name = "";
+                    }else{
+                        name = data.getStringExtra("name");
+                    }
+                    if(data.getStringExtra("phone") == null){
+                        phone = "";
+                    }else{
+                        phone = data.getStringExtra("phone");
+                    }
+                    level = data.getStringExtra("level");
+                    begintime = data.getStringExtra("fromtime");
+                    endtime = data.getStringExtra("totime");
+                    Log.i(LOG_TAG,"[筛选的数据]  name:"+name+"  phone:"+phone+"  level:"+level+"  "+begintime+"   "+endtime);
+                    initData();
+                    break;
+                case 100:
+                    Log.i(LOG_TAG,"[打电话后返回]");
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+        Log.i(LOG_TAG,"[上拉加载更多]");
+        if(adapter !=null){
+            if(haveMore){
+                Log.i(LOG_TAG, "[还有更多的数据]");
+                loadMoreData();
+            }else{
+                Log.i(LOG_TAG, "[没有更多的数据了]");
+                loadMoreView.setVisibility(View.VISIBLE);
+                loadMoreView.setText("没有更多的数据");
+            }
+        }
+    }//end loadMore
+
+    private void loadMoreData() {
+        loadMoreView.setVisibility(View.VISIBLE);
+        loadMoreView.setText("加载..");
+        HttpUtils httpUtils = HttpUtilsHelper.getInstance();
+        RequestParams requestParams = XutilsRequest.getPvcList(empid, "", "", "",
+                begintime, endtime,
+                String.valueOf(pageindex), String.valueOf(pagesize));
+        httpUtils.send(HttpRequest.HttpMethod.POST, UrlData.PCVLIST_URL, requestParams, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                String result = responseInfo.result;
+                Log.i(LOG_TAG,"[result]"+result);
+                if(result != null && result.length() > 0){
+                    parsePtCustomers(result);
+                    Log.i(LOG_TAG, "[解析完的数据]" + data.size() + "  --> " + data);
+                   // adapter = new PtCustomUltiRecycleAdapter(data);
+                    //listRecyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    loadMoreView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Toast.makeText(PtCustomersActivity.this,"网络请求错误",Toast.LENGTH_SHORT).show();
+            }
+
+        });//http 请求
+    }
+
+
+    //下拉刷新的时候
+    @Override
+    public void onRefresh() {
+        Log.i(LOG_TAG,"[下拉刷新]");
+        begintime = getNowDate();//获取当前时间
+        endtime = begintime;
+        level = "";
+        emptyTextView.setVisibility(View.GONE);
+        initData();
+    }
+}
+
+

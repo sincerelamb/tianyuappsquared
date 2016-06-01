@@ -1,0 +1,87 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.FPCustomerFragmentAdapter;
+import com.tygas.tianyu.tianyu.ui.adapter.PtCustomersFragmentPageAdapter;
+import com.tygas.tianyu.tianyu.ui.view.fragment.CustomersInfoFragment;
+import com.tygas.tianyu.tianyu.ui.view.fragment.CustomersProcessFragment;
+import com.tygas.tianyu.tianyu.ui.view.fragment.FP_CustomerInfo_Fragment;
+import com.tygas.tianyu.tianyu.ui.view.fragment.FP_History_Fragment;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+
+import java.util.ArrayList;
+
+public class FPinfoActivity extends FragmentActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
+
+    private ImageView returnImageView;//返回按钮
+    private ViewPager viewPager;
+    private TabLayout tabLayout;//联动的菜单
+
+    private FPCustomerFragmentAdapter adapter;
+    private FP_CustomerInfo_Fragment customersInfoFragment;
+    private FP_History_Fragment historyFragment;
+    ArrayList<Fragment> fragments;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_fpinfo);
+        initView();
+    }
+
+
+    private void initView() {
+        returnImageView = (ImageView) findViewById(R.id.activity_fpcustominfo_iv_back);
+        returnImageView.setOnClickListener(this);
+        tabLayout = (TabLayout) findViewById(R.id.activity_fpcustominfo_tl);
+        viewPager = (ViewPager) findViewById(R.id.activity_fpcustominfo_vp);
+
+        customersInfoFragment = FP_CustomerInfo_Fragment.newInstance(null, null);
+        historyFragment = FP_History_Fragment.newInstance(null, null);
+
+        fragments = new ArrayList<Fragment>();
+        fragments.add(customersInfoFragment);
+        fragments.add(historyFragment);
+
+        adapter = new FPCustomerFragmentAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(adapter);
+        //viewPager.addOnPageChangeListener(this);
+
+        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabsFromPagerAdapter(adapter);
+
+    }//end initView
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        int position = tab.getPosition();
+        viewPager.setCurrentItem(position);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+}

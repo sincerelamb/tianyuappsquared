@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    style="@style/AppSystemBar"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <ImageView
+            android:id="@+id/activtiy_ptcustomersfilter_back"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/title_activity_ptcustomerfilter"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activity_ptcustomersfilter_tv_confirm"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:gravity="center"
+            android:src="@drawable/determination_selector" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="#2666"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/activity_ptcustomersfilter_et_name"
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"
+                    android:textSize="18sp"
+                    android:hint="客户姓名"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/activity_ptcustomersfilter_et_phone"
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"
+                    android:textSize="18sp"
+                    android:hint="客户电话"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/activity_ptcustomersfilter_et_empName"
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"
+                    android:textSize="18sp"
+                    android:hint="员工姓名"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:text="客户等级"
+                    android:padding="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/activity_ptcustomersfilter_rl_level"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_h"
+                        android:text="H"
+                        android:tag="0"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="8dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_a"
+                        android:text="A"
+                        android:tag="1"
+                        android:layout_marginRight="4dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_toRightOf="@id/activtiy_ptcustomersfilter_h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_b"
+                        android:text="B"
+                        android:tag="2"
+                        android:layout_marginRight="4dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_toRightOf="@id/activtiy_ptcustomersfilter_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_c"
+                        android:text="C"
+                        android:tag="3"
+                        android:layout_marginRight="4dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_below="@id/activtiy_ptcustomersfilter_h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_fr"
+                        android:text="FR"
+                        android:tag="4"
+                        android:layout_marginRight="4dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_alignBottom="@id/activtiy_ptcustomersfilter_c"
+                        android:layout_toRightOf="@id/activtiy_ptcustomersfilter_c"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/activtiy_ptcustomersfilter_f"
+                        android:text="F"
+                        android:tag="5"
+                        android:layout_marginRight="4dp"
+                        style="@style/activity_ptcustomersfilterlevel"
+                        android:layout_toRightOf="@id/activtiy_ptcustomersfilter_fr"
+                        android:layout_alignBottom="@id/activtiy_ptcustomersfilter_fr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_ptcustomersfilter_rl_lasttime"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:text="应访问时间从"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"
+                    android:text="2015-09-21"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/activity_ptcustomersfilter_rl_nexttime"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:text="到"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="#000"
+                    android:layout_alignParentRight="true"
+                    android:text="2015-09-21"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

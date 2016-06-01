@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+
+        <ImageView
+            android:id="@+id/activtiy_ptcustomers_back"
+            android:layout_width="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/back_selector"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/title_activity_clue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activtiy_clue_tv_filter"
+            android:layout_width="50dp"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/filter_selector" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
+            android:id="@+id/activity_ptcustomers_rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            ></com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
+
+        <TextView
+            android:id="@+id/activity_ptcustomers_tv_empty"
+            android:layout_gravity="center"
+            android:text="没有数据"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

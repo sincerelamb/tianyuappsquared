@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="成功回访"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activity_returnvisitok_tv_save"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:src="@drawable/save_selector" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="通话时长"
+            android:textSize="16sp"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/activity_returnvisitok_iv_playIcon"
+            android:src="@mipmap/playstart"
+            android:scaleType="centerInside"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/activity_returnvisitok_tv_duration"
+            android:layout_toLeftOf="@id/activity_returnvisitok_iv_playIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="0:10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:text="洽谈内容"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/activity_returnvisitok_et_remark"
+            android:hint="请输入.."
+            android:background="@null"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:weightSum="3"
+        android:padding="10dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="客户等级"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+
+        <com.tygas.tianyu.tianyu.ui.view.customview.FocuGirdView
+            android:id="@+id/activity_returnvisitok_fgv_level"
+            android:numColumns="3"
+            android:layout_weight="2"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </com.tygas.tianyu.tianyu.ui.view.customview.FocuGirdView>
+    </LinearLayout>
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/activtiy_returnvisitok_ll_defeat"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="16sp"
+            android:text="战败类型"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.tygas.tianyu.tianyu.ui.view.customview.FocuGirdView
+            android:id="@+id/activtiy_returnvisitok_gridview"
+            android:numColumns="4"
+            android:layout_marginBottom="10dp"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.tygas.tianyu.tianyu.ui.view.customview.FocuGirdView>
+
+
+    </LinearLayout>
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/activity_returnvisitok_ll_liuzhuan"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/activtiy_returnvisitok_rl_pplz"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_alignParentLeft="true"
+                android:text="流转品牌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/activtiy_returnvisitok_tv_pplz"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:text="无"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <View
+            android:background="#2666"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/activtiy_returnvisitok_rl_lzcx"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="16sp"
+                android:layout_alignParentLeft="true"
+                android:text="流转车系"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/activtiy_returnvisitok_tv_lzcx"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:text="无"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <RelativeLayout
+        android:id="@+id/activtiy_returnvisitok_rl_visit"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="16sp"
+            android:layout_alignParentLeft="true"
+            android:text="成功邀约"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/activtiy_returnvisitok_cb_visit"
+            android:layout_alignParentRight="true"
+            android:button="@null"
+            android:background="@drawable/visitok_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <RelativeLayout
+        android:id="@+id/activtiy_returnvisitok_rl_cometime"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="邀约到店时间"
+            android:layout_alignParentLeft="true"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activtiy_returnvisitok_tv_cometime"
+            android:textSize="16sp"
+            android:text="2015-09-21"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

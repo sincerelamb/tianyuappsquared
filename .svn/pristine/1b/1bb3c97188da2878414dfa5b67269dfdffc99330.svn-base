@@ -1,0 +1,85 @@
+package com.tygas.tianyu.tianyu.ui.view.fragment;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.RepairProjectAdapter;
+import com.tygas.tianyu.tianyu.ui.model.RepairProject;
+
+import java.util.ArrayList;
+
+/**
+ * Created by SJTY_YX on 2016/3/2.
+ * 维修项目明细
+ */
+public class RepairProjectFragment extends Fragment{
+
+    private TextView emptyTextView;//数据为空的时候显示的样式
+    private ListView listView;//列表的布局
+    private TextView tatolTextView;//总费用
+    private Button calloutButton;//邀约播出按钮
+    private View root;//根布局
+
+    private ArrayList<RepairProject> data;//维修项目明细
+    private RepairProjectAdapter adapter;
+
+    private static final String LOG_TAG = "RepairProjectFragment";
+    private static final int HANDLER_UPLOADUI  = 0x0001;//更新ui
+
+    private Handler uiHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case HANDLER_UPLOADUI://更新ui
+                    uploadUI();
+                    break;
+            }
+        }
+    };
+
+    private void uploadUI() {
+        if(data != null && data.size() > 0){
+            emptyTextView.setVisibility(View.GONE);
+        }else{
+            emptyTextView.setVisibility(View.VISIBLE);
+        }
+    }//end uploadUI
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_repairproject,null);
+        initView();
+        initData();
+        return root;
+    }
+
+    private void initData() {
+        data = new ArrayList<>();
+        adapter = new RepairProjectAdapter(data);
+        for(int i=0;i<10;i++){
+            data.add(new RepairProject());
+        }
+        listView.setAdapter(adapter);
+        uiHandler.sendEmptyMessage(HANDLER_UPLOADUI);
+    }//end initData
+
+    private void initView() {
+        emptyTextView = (TextView) root.findViewById(R.id.fragment_repairproject_tv_empty);
+        listView = (ListView) root.findViewById(R.id.fragment_repairproject_lv_content);
+        tatolTextView = (TextView) root.findViewById(R.id.fragment_repairproject_tv_tatol);
+        calloutButton = (Button) root.findViewById(R.id.fragment_repairproject_btn_callout);
+    }//end initView
+
+
+}

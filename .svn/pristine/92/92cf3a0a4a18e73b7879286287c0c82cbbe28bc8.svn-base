@@ -1,0 +1,175 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.PtCustomUltiRecycleAdapter;
+import com.tygas.tianyu.tianyu.ui.model.PtCustomer;
+
+import java.util.ArrayList;
+
+public class PtCustomersActivity extends Activity implements View.OnClickListener,
+                                                    UltimateRecyclerView.OnLoadMoreListener,
+                                                    SwipeRefreshLayout.OnRefreshListener {
+
+    private UltimateRecyclerView listRecyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private PtCustomUltiRecycleAdapter adapter;
+    private ArrayList<PtCustomer> data;
+
+    private TextView filterTextView;//筛选按钮
+
+    private String empid;
+    private String clueName;
+    private String cluePhone;
+    private String isExpiry;
+    private String begintime;
+    private String endtime;
+    private String pageindex = "1";
+    private String pagesize = "10";
+
+
+    private static final String LOG_TAG = "PtCustomersActivity";
+    private static final String PATH = "http://carbase.tian028.com/OpenService/App.aspx?type=cluelist";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ptcustomers);
+        initView();
+        initData();
+
+        /*final UltimateRecyclerView recyclerView = (UltimateRecyclerView) findViewById(R.id.activity_ptcustomers_rv_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.enableLoadmore();
+
+        MyUltiRecycleAdapter adapter = new MyUltiRecycleAdapter();
+        adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setAdapter(adapter);*/
+
+        /*recyclerView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+                Toast.makeText(PtCustomersActivity.this, "LoadMore", Toast.LENGTH_SHORT).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        //simpleRecyclerViewAdapter.insert("More " + moreNum++, simpleRecyclerViewAdapter.getAdapterItemCount());
+
+                    }
+                }, 1000);
+            }
+        });
+        recyclerView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // simpleRecyclerViewAdapter.insert(moreNum++ + "  Refresh things", 0);
+                        recyclerView.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });*/
+
+    }//end onCreate
+
+    public static void startPtCustomersActivity(Context context,String empid,
+                                                String clueName,String cluePhone,
+                                                String isExpiry,String begintime,
+                                                String endtime,String pageindex,
+                                                String pageSize){
+        Intent intent = new Intent();
+        intent.putExtra("empid",empid);
+        intent.putExtra("clueName",clueName);
+        intent.putExtra("cluePhone",cluePhone);
+        intent.putExtra("isExpiry",isExpiry);
+        intent.putExtra("begintime",begintime);
+        intent.putExtra("endtime", endtime);
+        intent.putExtra("pageindex", pageindex);
+        intent.putExtra("pagesize", pageSize);
+        intent.setClass(context, PtCustomer.class);
+        context.startService(intent);
+    }//end startPtCustomersActivity
+
+
+    public static void startPtCustomersActivity(Context context,String empid){
+        startPtCustomersActivity(context,empid,null,null,null,null,null,null,null);
+    }
+
+    private void initData() {
+
+        Intent intent = getIntent();
+        empid = intent.getStringExtra("empid");
+        clueName = intent.getStringExtra("clueName");
+        cluePhone = intent.getStringExtra("cluePhone");
+        isExpiry = intent.getStringExtra("isExpiry");
+        begintime = intent.getStringExtra("begintime");
+        endtime = intent.getStringExtra("endtime");
+        pageindex = intent.getStringExtra("pageindex");
+        pagesize = intent.getStringExtra("pagesize");
+
+        data = new ArrayList<>();
+        for(int i=0;i<4;i++){
+            data.add(new PtCustomer());
+        }
+
+        adapter = new PtCustomUltiRecycleAdapter(data);
+        adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));
+        listRecyclerView.setAdapter(adapter);
+    }//end initData
+
+    private void initView() {
+        listRecyclerView = (UltimateRecyclerView) findViewById(R.id.activity_ptcustomers_rv_list);
+        linearLayoutManager = new LinearLayoutManager(this);
+        listRecyclerView.setLayoutManager(linearLayoutManager);
+        listRecyclerView.enableLoadmore();
+        listRecyclerView.setHasFixedSize(false);
+
+        listRecyclerView.setOnLoadMoreListener(this);
+        listRecyclerView.setDefaultOnRefreshListener(this);
+
+       /* adapter = new PtCustomUltiRecycleAdapter();
+        adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));
+        listRecyclerView.setAdapter(adapter);*/
+
+        filterTextView = (TextView) findViewById(R.id.activtiy_clue_tv_filter);
+        filterTextView.setOnClickListener(this);
+    }//end initView
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activtiy_clue_tv_filter://点击筛选按钮
+                Intent intent = new Intent();
+                intent.setClass(this,PtCustomersFilterActivity.class);
+                startActivity(intent);
+                break;
+        }//end switch
+    }//end onclick
+
+    @Override
+    public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+
+    }//end loadMore
+
+    @Override
+    public void onRefresh() {
+
+    }
+}

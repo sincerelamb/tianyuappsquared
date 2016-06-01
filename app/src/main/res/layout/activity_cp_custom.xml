@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tygas.tianyu.tianyu.ui.view.activity.CpCustomActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <ImageView
+            android:id="@+id/activtiy_cpcustomers_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_selector"
+            android:onClick="onClick"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="补全客户到店列表"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/activtiy_cpcustomers_select"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/filter_selector" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="#dddddd"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="查询到"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:id="@+id/activity_cpcustomer_tv_find_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/appOrange"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="条数据"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/activity_cpcustom_iv_nodata"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:scaleType="center"
+            android:src="@mipmap/nodata"
+            android:visibility="gone" />
+
+        <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
+            android:id="@+id/activity_cpcustom_ulry_cplist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
+    </RelativeLayout>
+
+
+</LinearLayout>

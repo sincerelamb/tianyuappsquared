@@ -1,0 +1,71 @@
+package com.tygas.tianyu.tianyu.ui.view.fragment;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.model.Clue;
+
+/**
+ * Created by SJTY_YX on 2016/1/28.
+ */
+public class ClueInfoFragment extends Fragment implements View.OnClickListener {
+
+
+    private View root;
+
+    private TextView nameTextView;//线索姓名
+    private TextView phoneTextView;//线索电话
+    private TextView empTextView;//电销员
+    private TextView liveProvinceTextView;//常住省
+    private TextView liveCityTextView;//常住市
+    private TextView comeFromTextView;//来店渠道
+    private TextView infoFromTextView;//信息渠道
+    private TextView loveCarTextView;//意向车系
+    private TextView loveCarModelTextView;//意向车型
+
+    private Button callOutButton;//播出按钮
+
+    private Clue clue;//线索
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_clueinfo, container, false);
+        nameTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_name);
+        phoneTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_phone);
+        empTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_emp);
+        liveProvinceTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_liveProvince);
+        liveCityTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_liveCity);
+        comeFromTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_comefrom);
+        infoFromTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_infofrom);
+        loveCarTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_lovecar);
+        loveCarModelTextView = (TextView) root.findViewById(R.id.fragment_clueinfo_tv_lovecarmodel);
+        callOutButton = (Button) root.findViewById(R.id.fragment_clueinfo_btn_callout);
+        callOutButton.setOnClickListener(this);
+        Bundle bundle = getArguments();
+        clue = (Clue) bundle.getSerializable("data");
+        initData();
+        return root;
+    }//end onCreateView
+
+    private void initData() {
+        if(clue != null){
+            nameTextView.setText(clue.getClueName());
+            //phoneTextView.setText();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fragment_clueinfo_btn_callout://点击了跟踪播出
+
+                break;
+        }
+    }//end onClick
+}

@@ -1,0 +1,83 @@
+package com.tygas.tianyu.tianyu.ui.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
+import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
+import com.tygas.tianyu.tianyu.R;
+
+/**
+ * Created by Administrator on 2016/1/18.
+ */
+public class CpCustomUltiRecycleAdapter extends UltimateViewAdapter<CpCustomUltiRecycleAdapter.MyViewHodler> {
+
+    private Context context;
+
+    public CpCustomUltiRecycleAdapter(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public MyViewHodler getViewHolder(View view) {
+        return new MyViewHodler(view);
+    }
+
+
+    @Override
+    public MyViewHodler onCreateViewHolder(ViewGroup parent) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.cpcustomers_layout_item, parent, false);
+        MyViewHodler vh = new MyViewHodler(v);
+        return vh;
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return 3;
+    }
+
+    @Override
+    public long generateHeaderId(int position) {
+        return 0;
+    }
+
+
+    @Override
+    public void onBindViewHolder(MyViewHodler holder, int position) {
+//        holder.iv_info.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, CpCustomInfoActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+
+        return null;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    class MyViewHodler extends UltimateRecyclerviewViewHolder {
+
+        private ImageView iv_info;
+
+        public MyViewHodler(View itemView) {
+            super(itemView);
+
+            iv_info = (ImageView) itemView.findViewById(R.id.item_cpcustomers_iv_info_pic);
+        }
+
+    }
+}

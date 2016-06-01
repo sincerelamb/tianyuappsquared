@@ -1,0 +1,417 @@
+package com.tygas.tianyu.tianyu.utils;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import com.tygas.tianyu.tianyu.ui.model.CpCustomer;
+import com.tygas.tianyu.tianyu.ui.model.PID;
+import com.tygas.tianyu.tianyu.ui.model.SaveStatu;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.ui.model.UserPtInfoModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/1/21.
+ */
+public class JsonParser {
+    private static String SUCCESS = "Success";
+    private static String FAIL = "Fail";
+    private static String UserPWIncorrent = "UserPWIncorrent";
+    private static final String LOG_TAG = "JsonParser";
+
+    public static User loginParser(String string) {
+        Log.i(LOG_TAG, "[登录返回的数据]" + string);
+        User user = new User();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+
+            String message = jsonObject.getString("message");
+            user.setLoginInformation(message);
+
+            if (SUCCESS.equals(status)) {
+                String data_str = jsonObject.getString("data");
+                Log.i(LOG_TAG, "[登录返回的data]" + data_str);
+                JSONObject data = new JSONObject(data_str);
+                user.setIsLoginSuccess(true);
+                user.setEmpId(data.getString("EmpID"));
+                user.setEmpName(data.getString("EmpName"));
+                JSONObject dataList = data.getJSONObject("SelectDataList");
+
+                JSONArray PIDList = dataList.getJSONArray("PID");
+                List<PID> list_pid = new ArrayList<PID>();
+                if (null != PIDList && PIDList.length() > 0) {
+                    for (int i = 0; i < PIDList.length(); i++) {
+                        PID pid = new PID();
+                        JSONObject jsonObject_i = PIDList.getJSONObject(i);
+                        pid.setFormID(jsonObject_i.getString("FormID"));
+                        list_pid.add(pid);
+                    }
+                }
+                user.setList_PID(list_pid);
+
+
+                JSONArray channelList = dataList.getJSONArray("ChannelList");
+                List<UserPtInfoModel> userPtInfoModels_channel = new ArrayList<>();
+                if (null != channelList && channelList.length() > 0) {
+                    for (int i = 0; i < channelList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = channelList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("ChannelList");
+                        userPtInfoModels_channel.add(userPtInfoModel);
+                    }
+                }
+                user.setList_Channel(userPtInfoModels_channel);
+
+
+                JSONArray useageList = dataList.getJSONArray("UseageList");
+                List<UserPtInfoModel> userPtInfoModels_useage = new ArrayList<>();
+                if (null != useageList && useageList.length() > 0) {
+                    for (int i = 0; i < useageList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = useageList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("UseageList");
+                        userPtInfoModels_useage.add(userPtInfoModel);
+                    }
+                }
+                user.setList_Useage(userPtInfoModels_useage);
+
+
+                JSONArray brandList = dataList.getJSONArray("OtherBrandList");
+                List<UserPtInfoModel> userPtInfoModels_brand = new ArrayList<>();
+                if (null != brandList && brandList.length() > 0) {
+                    for (int i = 0; i < brandList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = brandList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("OtherBrandList");
+                        userPtInfoModels_brand.add(userPtInfoModel);
+                    }
+                }
+                user.setList_Brand(userPtInfoModels_brand);
+
+
+                JSONArray carSeriesList = dataList.getJSONArray("CarSeries");
+                List<UserPtInfoModel> userPtInfoModels_carSeries = new ArrayList<>();
+                if (null != carSeriesList && carSeriesList.length() > 0) {
+                    for (int i = 0; i < carSeriesList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = carSeriesList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("CarSeries");
+                        userPtInfoModels_carSeries.add(userPtInfoModel);
+                    }
+                }
+                user.setList_CarSeries(userPtInfoModels_carSeries);
+
+
+                JSONArray focusList = dataList.getJSONArray("FocusCarmodelList");
+                Log.i(LOG_TAG, "[focuscarmodelist]" + focusList);
+                List<UserPtInfoModel> userPtInfoModels_focus = new ArrayList<>();
+                if (null != focusList && focusList.length() > 0) {
+                    for (int i = 0; i < focusList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = focusList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("FocusCarmodelList");
+                        userPtInfoModels_focus.add(userPtInfoModel);
+                    }
+                }
+                user.setList_Focus(userPtInfoModels_focus);
+
+                JSONArray checkColorList = dataList.getJSONArray("CheckColorList");
+                List<UserPtInfoModel> userPtInfoModels_checkColor = new ArrayList<>();
+                if (null != checkColorList && checkColorList.length() > 0) {
+                    for (int i = 0; i < checkColorList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = checkColorList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("CheckColorList");
+                        userPtInfoModels_checkColor.add(userPtInfoModel);
+                    }
+                }
+                user.setList_CheckColorList(userPtInfoModels_checkColor);
+
+                JSONArray failTypeist = dataList.getJSONArray("FailType");
+                List<UserPtInfoModel> userPtInfoModels_failType = new ArrayList<>();
+                if (null != failTypeist && failTypeist.length() > 0) {
+                    for (int i = 0; i < failTypeist.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = failTypeist.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("FailType");
+                        userPtInfoModels_failType.add(userPtInfoModel);
+                    }
+                }
+                user.setList_FailType(userPtInfoModels_failType);
+
+
+                JSONArray listSourceChannel = dataList.getJSONArray("SourceChannel");
+                List<UserPtInfoModel> userPtInfoModels_SourceChannel = new ArrayList<>();
+                if (null != listSourceChannel && listSourceChannel.length() > 0) {
+                    for (int i = 0; i < listSourceChannel.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = listSourceChannel.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("SourceChannel");
+                        userPtInfoModels_SourceChannel.add(userPtInfoModel);
+                    }
+                }
+                user.setList_SourceChannel(userPtInfoModels_SourceChannel);
+
+                JSONArray listCustomerLevel = dataList.getJSONArray("CustomerLevel");
+                List<UserPtInfoModel> userPtInfoModels_CustomerLevel = new ArrayList<>();
+                if (null != listCustomerLevel && listCustomerLevel.length() > 0) {
+                    for (int i = 0; i < listCustomerLevel.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = listCustomerLevel.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("CustomerLevel");
+                        userPtInfoModels_CustomerLevel.add(userPtInfoModel);
+                    }
+                }
+                user.setList_CustomerLevel(userPtInfoModels_CustomerLevel);
+
+                JSONArray listCarModels = dataList.getJSONArray("CarModel");
+                List<UserPtInfoModel> userPtInfoModels_CarModels = new ArrayList<>();
+                if (null != listCarModels && listCarModels.length() > 0) {
+                    for (int i = 0; i < listCarModels.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = listCarModels.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("CarModels");
+                        userPtInfoModels_CarModels.add(userPtInfoModel);
+                    }
+                }
+                user.setList_CarModels(userPtInfoModels_CarModels);
+
+
+                JSONArray otherSeriesList = dataList.getJSONArray("OtherSeriesList");
+                List<UserPtInfoModel> userPtInfoModels_otherSeries = new ArrayList<>();
+                if (null != otherSeriesList && otherSeriesList.length() > 0) {
+                    for (int i = 0; i < otherSeriesList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = otherSeriesList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("OtherSeries");
+                        userPtInfoModels_otherSeries.add(userPtInfoModel);
+                    }
+                }
+                user.setList_OtherCarSeries(userPtInfoModels_otherSeries);
+
+                JSONArray UserNumList = dataList.getJSONArray("UserNum");
+                List<UserPtInfoModel> userPtInfoModels_UserNum = new ArrayList<>();
+                if (null != UserNumList && UserNumList.length() > 0) {
+                    for (int i = 0; i < UserNumList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = UserNumList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("UserNum");
+                        userPtInfoModels_UserNum.add(userPtInfoModel);
+                    }
+                }
+                user.setList_UserNum(userPtInfoModels_UserNum);
+
+                JSONArray LevelNotDefeatList = dataList.getJSONArray("LevelNotDefeat");
+                List<UserPtInfoModel> userPtInfoModels_LevelNotDefeat = new ArrayList<>();
+                if (null != LevelNotDefeatList && LevelNotDefeatList.length() > 0) {
+                    for (int i = 0; i < LevelNotDefeatList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = LevelNotDefeatList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("LevelNotDefeat");
+                        userPtInfoModels_LevelNotDefeat.add(userPtInfoModel);
+                    }
+                }
+                user.setList_LevelNotDefeat(userPtInfoModels_LevelNotDefeat);
+
+                JSONArray LevelNotClinchList = dataList.getJSONArray("LevelNotClinch");
+                List<UserPtInfoModel> userPtInfoModels_LevelNotClinch = new ArrayList<>();
+                if (null != LevelNotClinchList && LevelNotClinchList.length() > 0) {
+                    for (int i = 0; i < LevelNotClinchList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = LevelNotClinchList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("LevelNotClinch");
+                        userPtInfoModels_LevelNotClinch.add(userPtInfoModel);
+                    }
+                }
+                user.setList_LevelNotClinch(userPtInfoModels_LevelNotClinch);
+
+
+                JSONArray LevelAllList = dataList.getJSONArray("LevelAll");
+                List<UserPtInfoModel> userPtInfoModels_LevelAll = new ArrayList<>();
+                if (null != LevelAllList && LevelAllList.length() > 0) {
+                    for (int i = 0; i < LevelAllList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = LevelAllList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("LevelAll");
+                        userPtInfoModels_LevelAll.add(userPtInfoModel);
+                    }
+                }
+                user.setList_LevelAll(userPtInfoModels_LevelAll);
+
+
+                Log.d("userdata", user.toString());
+            } else {
+                user.setIsLoginSuccess(false);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i(LOG_TAG, "[json解析出错]" + e);
+        }
+        return user;
+    }
+
+    public static List<CpCustomer> cpCustomersParser(String string) {
+        ArrayList<CpCustomer> cpCustomers = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            if (SUCCESS.equals(status)) {
+                String data_string = jsonObject.getString("data");
+                JSONObject data = new JSONObject(data_string);
+                JSONArray reciveComeList = data.getJSONArray("ReciveComeList");
+                for (int i = 0; i < reciveComeList.length(); i++) {
+                    JSONObject jsonObject1 = reciveComeList.getJSONObject(i);
+                    CpCustomer cpCustomer = new CpCustomer();
+                    cpCustomer.setReciveComeId(jsonObject1.getString("reciveComeId"));
+                    cpCustomer.setEmpName(jsonObject1.getString("empName"));
+                    cpCustomer.setComeTime(jsonObject1.getString("ComeTime"));
+                    cpCustomer.setLeaveTime(jsonObject1.getString("LeaveTime"));
+                    cpCustomer.setCustomerName(jsonObject1.getString("customerName"));
+                    cpCustomer.setCustomerPhone(jsonObject1.getString("customerPhone"));
+                    cpCustomer.setCarseriesName(jsonObject1.getString("carseriesName"));
+                    cpCustomer.setFollowPeo(jsonObject1.getString("FollowPeo"));
+                    cpCustomer.setIsSuppleState(jsonObject1.getString("IsSuppleState"));
+                    cpCustomer.setLiveProvince(jsonObject1.getString("LiveProvince"));
+                    cpCustomer.setLiveCity(jsonObject1.getString("LiveCity"));
+                    cpCustomer.setLiveArea(jsonObject1.getString("LiveArea"));
+                    cpCustomers.add(cpCustomer);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return cpCustomers;
+    }
+
+
+    public static SaveStatu saveCustomersParser(String string) {
+        SaveStatu saveStatu = new SaveStatu();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            String message = jsonObject.getString("message");
+            saveStatu.setMessage(message);
+            if (SUCCESS.equals(status)) {
+                String data_string = jsonObject.getString("data");
+                JSONObject data = new JSONObject(data_string);
+                String reciveComeID = data.getString("ReciveComeID");
+                saveStatu.setReciveComeID(reciveComeID);
+                saveStatu.setIsSaveDate(true);
+            } else {
+                saveStatu.setIsSaveDate(false);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return saveStatu;
+    }
+
+    public static Bundle versionCodeParser(String string) {
+        Bundle bundle = new Bundle();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            String message = jsonObject.getString("message");
+            bundle.putString("message", message);
+            if (SUCCESS.equals(status)) {
+                String data_string = jsonObject.getString("data");
+                JSONObject data = new JSONObject(data_string);
+                String APPVersion = data.getString("APPVersion");
+                bundle.putString("APPVersion", APPVersion);
+                String APPDownLoadPath = data.getString("APPDownLoadPath");
+                bundle.putString("APPDownLoadPath", APPDownLoadPath);
+                bundle.putBoolean("isSucces", true);
+            } else {
+                bundle.putBoolean("isSucces", false);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bundle;
+    }
+
+    public static List<UserPtInfoModel> updataUItotal(String string) {
+        JSONObject jsonObject = null;
+        List<UserPtInfoModel> userPtInfoModels_UserNum = new ArrayList<>();
+        try {
+            jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            if (SUCCESS.equals(status)) {
+                String data_str = jsonObject.getString("data");
+                JSONObject data = new JSONObject(data_str);
+                JSONObject dataList = data.getJSONObject("SelectDataList");
+                JSONArray UserNumList = dataList.getJSONArray("UserNum");
+                if (null != UserNumList && UserNumList.length() > 0) {
+                    for (int i = 0; i < UserNumList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = UserNumList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setPID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setName(jsonObject_i.getString("Name"));
+                        userPtInfoModel.setType("UserNum");
+                        userPtInfoModels_UserNum.add(userPtInfoModel);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return userPtInfoModels_UserNum;
+    }
+
+}

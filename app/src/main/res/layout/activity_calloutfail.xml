@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <ImageView
+            android:id="@+id/activity_returnvisitfail_iv_back"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/back"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="拨出失败"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activity_calloutfail_iv_save"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/save_selector" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:text="备注"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/activity_calloutfail_et_remark"
+            android:hint="请输入(必填)..."
+            android:textColorHint="@color/appOrange"
+            android:background="@null"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/activity_calloutfail_ll_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/activity_calloutfail_tv_later"
+            android:gravity="center"
+            android:text="稍后邀约"
+            android:tag="1"
+            android:textSize="20sp"
+            android:textColor="#a000"
+            android:padding="15dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="#ff0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activity_calloutfail_tv_tom"
+            android:text="明日邀约"
+            android:tag="2"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:background="#ff0"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:textColor="#a000"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activity_calloutfail_tv_self"
+            android:text="约定邀约"
+            android:tag="3"
+            android:background="#ff0"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:padding="15dp"
+            android:textColor="#a000"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:text="下次邀约时间"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activity_calloutfail_tv_nextTime"
+            android:padding="10dp"
+            android:text="2015-11-12"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

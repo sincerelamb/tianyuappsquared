@@ -1,0 +1,174 @@
+package com.tygas.tianyu.tianyu.ui.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by SJTY_YX on 2016/1/19.
+ */
+public class PtCustomer implements Serializable {
+
+    private String clueid; // "4762"
+    private String clueName; // "李雪琴"
+    private String cluePhone; // "155213654201"
+    private String empName; // "唐丽梅"
+    private String intentLevel; // "C"
+    private String lastContratTime; //"2015-11-03 15:35:10"
+    private String carseriesName; //"D20"
+    private String carModeName; //"1.5L MT舒适型"
+    private String sourceChannelName; // "汽车点评网"
+    private String liveProvince; //  "四川省"
+    private String liveCity;  // "成都市"
+    private String liveArea; // "锦江区"
+    private String channelName; // "转介绍 "
+    private String nextCallTime; // "2015-12-30"
+
+    public PtCustomer(){
+        clueid = "4762";
+        clueName = "TEST";
+        cluePhone = "18808239791";
+        empName = "TEST";
+        intentLevel = "C";
+        lastContratTime = "2.16-11-03";
+        carModeName = "D20!!1...";
+        carseriesName = "D20";
+        sourceChannelName = "baidu";
+        liveProvince = "四川省";
+        liveCity = "成都市";
+        liveArea = "高新区";
+        channelName = "转介绍";
+        nextCallTime = "2016-01-02";
+    }
+
+
+    public String getClueid() {
+        return clueid;
+    }
+
+    public void setClueid(String clueid) {
+        this.clueid = clueid;
+    }
+
+    public String getClueName() {
+        return clueName;
+    }
+
+    public void setClueName(String clueName) {
+        this.clueName = clueName;
+    }
+
+    public String getCluePhone() {
+        return cluePhone;
+    }
+
+    public void setCluePhone(String cluePhone) {
+        this.cluePhone = cluePhone;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getIntentLevel() {
+        return intentLevel;
+    }
+
+    public void setIntentLevel(String intentLevel) {
+        this.intentLevel = intentLevel;
+    }
+
+    public String getLastContratTime() {
+        return lastContratTime;
+    }
+
+    public void setLastContratTime(String lastContratTime) {
+        this.lastContratTime = lastContratTime;
+    }
+
+    public String getCarseriesName() {
+        return carseriesName;
+    }
+
+    public void setCarseriesName(String carseriesName) {
+        this.carseriesName = carseriesName;
+    }
+
+    public String getCarModeName() {
+        return carModeName;
+    }
+
+    public void setCarModeName(String carModeName) {
+        this.carModeName = carModeName;
+    }
+
+    public String getSourceChannelName() {
+        return sourceChannelName;
+    }
+
+    public void setSourceChannelName(String sourceChannelName) {
+        this.sourceChannelName = sourceChannelName;
+    }
+
+    public String getLiveProvince() {
+        return liveProvince;
+    }
+
+    public void setLiveProvince(String liveProvince) {
+        this.liveProvince = liveProvince;
+    }
+
+    public String getLiveCity() {
+        return liveCity;
+    }
+
+    public void setLiveCity(String liveCity) {
+        this.liveCity = liveCity;
+    }
+
+    public String getLiveArea() {
+        return liveArea;
+    }
+
+    public void setLiveArea(String liveArea) {
+        this.liveArea = liveArea;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getNextCallTime() {
+        return nextCallTime;
+    }
+
+    public void setNextCallTime(String nextCallTime) {
+        this.nextCallTime = nextCallTime;
+    }
+
+    @Override
+    public String toString() {
+        return "PtCustomer{" +
+                "clueid='" + clueid + '\'' +
+                ", clueName='" + clueName + '\'' +
+                ", cluePhone='" + cluePhone + '\'' +
+                ", empName='" + empName + '\'' +
+                ", intentLevel='" + intentLevel + '\'' +
+                ", lastContratTime='" + lastContratTime + '\'' +
+                ", carseriesName='" + carseriesName + '\'' +
+                ", carModeName='" + carModeName + '\'' +
+                ", sourceChannelName='" + sourceChannelName + '\'' +
+                ", liveProvince='" + liveProvince + '\'' +
+                ", liveCity='" + liveCity + '\'' +
+                ", liveArea='" + liveArea + '\'' +
+                ", channelName='" + channelName + '\'' +
+                ", nextCallTime='" + nextCallTime + '\'' +
+                '}';
+    }
+}

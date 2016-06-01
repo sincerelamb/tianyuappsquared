@@ -1,0 +1,167 @@
+package com.tygas.tianyu.tianyu.context;
+
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.provider.CallLog;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.czt.mp3recorder.MP3Recorder;
+import com.tygas.tianyu.tianyu.data.Config;
+import com.tygas.tianyu.tianyu.ui.view.activity.ReturnVisitFail;
+import com.tygas.tianyu.tianyu.ui.view.activity.ReturnVisitOk;
+import com.tygas.tianyu.tianyu.utils.RecordFile;
+
+import java.io.File;
+import java.lang.reflect.Field;
+
+
+/**
+ * Created by SJTY_YX on 2016/1/25.
+ */
+public class PhonStateLisen extends PhoneStateListener {
+
+    private static final String LOG_TAG = "PhonStateLisen";
+    private boolean isCall = false;
+    //private MediaRecorder mediaRecorder;
+
+    MP3Recorder mediaRecorder;// = new MP3Recorder(new File(Environment.getExternalStorageDirectory(),"test.mp3"));
+
+    private File file;
+    private Context context;
+    private Activity activity;
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    private String phoneNumber;//其实是文件名 时间 hh:mm:ss
+
+    private String number;
+    private String recordPath;
+
+    public void setRecordPath(String recordPath) {
+        this.recordPath = recordPath;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public PhonStateLisen(Context context) {
+        this.context = context;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public void onCallStateChanged(int state, String incomingNumber) {
+        switch (state){
+            case TelephonyManager.CALL_STATE_IDLE://电话挂断
+                if(isCall){
+                    /*if(readThread!=null){
+                        readThread.isRun = false;
+                    }*/
+                    phoneNumber = null;
+                    //结束录音服务
+                    if(mediaRecorder != null){
+                        dealCallAfter();
+                        Toast.makeText(context,"录音结束",Toast.LENGTH_SHORT).show();
+                        mediaRecorder.stop();
+                        mediaRecorder = null;
+
+                    }
+                }
+                isCall = false;
+                break;
+            case TelephonyManager.CALL_STATE_OFFHOOK://电话链接
+                if(phoneNumber != null){
+                    isCall = true;
+                    /*readThread = new ReadThread(context);
+                    readThread.start();*/
+                }
+                if(isCall){
+                    //启动录音服务
+                    Toast.makeText(context, "开始录音", Toast.LENGTH_SHORT).show();
+                    RecordFile recordFile = new RecordFile(context,phoneNumber);
+                    file = recordFile.getRecordFile();
+                    mediaRecorder = new MP3Recorder(file);
+
+                    /*Class clazz = MP3Recorder.class;
+                    try {
+                        Field f = clazz.getDeclaredField("DEFAULT_AUDIO_SOURCE");
+                        f.setInt(mediaRecorder,MediaRecorder.AudioSource.VOICE_CALL);
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }*/
+                    
+                    try {
+                        mediaRecorder.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.i(LOG_TAG,"[错误]"+e);
+                    }
+                }
+                break;
+            case TelephonyManager.CALL_STATE_RINGING://电话响铃
+                break;
+        }
+    }
+
+    private void dealCallAfter() {
+            //String da = data.getStringExtra("data");
+            //Log.i(LOG_TAG,"[通话返回的data]"+da);
+            //获取通话记录
+            ContentResolver resolver = activity.getContentResolver();
+            Cursor query = resolver.query(CallLog.Calls.CONTENT_URI,
+                    null, null, null, CallLog.Calls.DATE + " desc limit 1");
+
+            if(query == null){
+                Toast.makeText(activity,"读取通话记录失败",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            query.moveToFirst();
+            String num = query.getString(query.getColumnIndex(CallLog.Calls.NUMBER));
+            long duration = query.getLong(query.getColumnIndex(CallLog.Calls.DURATION));//通话时长
+            if(Config.isDebug)
+                Log.i(LOG_TAG,"[读取到的通话记录]"+number+"  duration "+duration);
+            if(num.equals(number) && duration != 0){
+                Log.i(LOG_TAG, "[ok]");
+                Intent intent = new Intent();
+                intent.putExtra("data", number);
+                intent.putExtra("path",recordPath);
+                intent.putExtra("duration",duration);
+                intent.setClass(activity,ReturnVisitOk.class);
+                activity.startActivity(intent);
+            }else{
+                Intent intent = new Intent();
+                intent.putExtra("data", number);
+                intent.putExtra("path", recordPath);
+                intent.setClass(activity, ReturnVisitFail.class);
+                //删除录音文件
+                File f = new File(recordPath);
+                if(f.exists()){
+                    f.delete();
+                }
+                //intent.setClass(this,ReturnVisitOk.class);
+                activity.startActivity(intent);
+            }
+    }
+}

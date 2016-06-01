@@ -1,0 +1,7 @@
+package com.tygas.tianyu.tianyu.ui.model;
+
+/**
+ * Created by Administrator on 2016/3/3.
+ */
+public class TimingProtect {
+}

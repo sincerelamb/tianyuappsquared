@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">天裕汽车一体营销平台</string>
+    <string name="title_activity_splash">天裕汽车一体营销平台</string>
+    <string name="title_activity_clue">我的潜客列表</string>
+    <string name="filter">筛选</string>
+    <string name="title_activity_ptcustomerfilter">潜客回访筛选</string>
+    <string name="confirm">确定</string>
+    <string name="returnm">返回</string>
+    <string name="title_activity_ptcustomerdetail">潜客详细信息</string>
+</resources>
