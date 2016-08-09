@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_name"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#c000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_leveltitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/ptcustomers_process_item_name"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="等级:" />
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ptcustomers_process_item_leveltitle"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/ptcustomers_process_item_leveltitle"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/appBlue" />
+
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item__next_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ptcustomers_process_item_level"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/ptcustomers_process_item_level"
+            android:text="预计下次: " />
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item__next_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ptcustomers_process_item__next_time_title"
+            android:layout_toRightOf="@id/ptcustomers_process_item__next_time_title"
+            android:textColor="#1681b7" />
+
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_job"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ptcustomers_process_item_name"
+            android:layout_below="@id/ptcustomers_process_item_name"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:singleLine="true"
+            android:text="销售顾问:" />
+
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ptcustomers_process_item_job"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/ptcustomers_process_item_job"
+            android:text="接触时间:" />
+
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_time"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/ptcustomers_process_item_time_title"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/ptcustomers_process_item_time_title"
+            android:ellipsize="end"
+            android:singleLine="true" />
+
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_recode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/ptcustomers_process_item_job"
+            android:layout_below="@id/ptcustomers_process_item_job"
+            android:layout_marginTop="8dp"
+            android:text="接触记录: " />
+
+        <TextView
+            android:id="@+id/ptcustomers_process_item_recode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/ptcustomers_process_item_recode_title"
+            android:layout_toRightOf="@id/ptcustomers_process_item_recode_title"
+            android:ellipsize="end"
+            android:maxHeight="100dp"
+            android:textColor="#a000" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#cccccc" />
+</LinearLayout>
