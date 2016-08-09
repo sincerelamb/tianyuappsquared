@@ -32,6 +32,7 @@ import com.tygas.tianyu.tianyu.ui.view.activity.FirstProtectActivity;
 import com.tygas.tianyu.tianyu.ui.view.activity.MainActivity;
 import com.tygas.tianyu.tianyu.ui.view.activity.PersonHomePageActivity;
 import com.tygas.tianyu.tianyu.ui.view.activity.PtCustomersActivity;
+import com.tygas.tianyu.tianyu.ui.view.activity.PushPhoneReActivity;
 import com.tygas.tianyu.tianyu.ui.view.activity.RecoderTextActivity;
 import com.tygas.tianyu.tianyu.ui.view.activity.TimingProtectActivity;
 import com.tygas.tianyu.tianyu.utils.HttpUtilsHelper;
@@ -64,6 +65,7 @@ public class MainGvAdapter extends BaseAdapter {
     public static final String FP_LIST = "AndroidApp_aft_Edit";
     public static final String TP_LIST = "AndroidApp_sale_Edit";
     public static final String KPI_LIST = "AndroidApp_userkpi_Edit";
+    public static final String PhoneRecord_LIST = "111";
 
     public void setListTotal(List<UserPtInfoModel> list) {
         this.list = list;
@@ -272,6 +274,18 @@ public class MainGvAdapter extends BaseAdapter {
 //                        }
 //                    });
 //                    break;
+                case PhoneRecord_LIST:
+                    holder.textView.setVisibility(View.GONE);
+                    holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.phonerecordlist));
+                    holder.imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent_newout = new Intent(context, PushPhoneReActivity.class);
+                            context.startActivity(intent_newout);
+                        }
+                    });
+                    break;
+
             }
 
 
