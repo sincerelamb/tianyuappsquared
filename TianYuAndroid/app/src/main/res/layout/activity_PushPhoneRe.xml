@@ -10,7 +10,7 @@
         android:background="#327ECA">
 
         <ImageView
-            android:id="@+id/activity_PushPhoneRe_back"
+            android:id="@+id/activity_pushphonere_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:clickable="true"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/activity_PushPhoneRe_back_upload"
+            android:id="@+id/activity_pushphonere_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

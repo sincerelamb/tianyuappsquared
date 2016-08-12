@@ -28,20 +28,20 @@ public class PushPhoneReActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
 
 
-        PushPhoneRe_back = (ImageView)findViewById(R.id.activity_PushPhoneRe_back);
-        Upload = (Button)findViewById(R.id.activity_PushPhoneRe_back_upload);
+        PushPhoneRe_back = (ImageView)findViewById(R.id.activity_pushphonere_back);
+        Upload = (Button)findViewById(R.id.activity_pushphonere_upload);
 
 
     }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.activity_PushPhoneRe_back_upload://全部上传按钮
+            case R.id.activity_pushphonere_upload://全部上传按钮
 
 
 
             break;
-            case R.id.activity_PushPhoneRe_back://返回按钮
+            case R.id.activity_pushphonere_back://返回按钮
             finish();
             break;
         }
