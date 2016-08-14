@@ -151,6 +151,11 @@
         <activity android:name=".ui.view.activity.TextReturnVisitOKActivity" />
         <activity android:name=".ui.view.activity.TextReturnVisitFailActivity" />
         <activity android:name=".ui.view.activity.LeavelInfoActivity"></activity>
+
+        <activity
+            android:name=".ui.view.activity.PushPhoneReActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

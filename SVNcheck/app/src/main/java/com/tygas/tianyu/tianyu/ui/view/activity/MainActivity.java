@@ -470,7 +470,9 @@ public class MainActivity extends Activity {
 
                 break;
             case R.id.item_upload_button:
-
+                Log.v("123","111");
+                Intent intent_UpPhone = new Intent(this, PushPhoneReActivity.class);
+                startActivity(intent_UpPhone);
                 break;
         }
     }

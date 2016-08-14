@@ -648,20 +648,20 @@
                 <ImageView
                     android:id="@+id/item_upload_button"
                     android:background="@drawable/upload"
+                    android:onClick="listOnclick"
                     android:layout_width="72dp"
-                    android:layout_height="86dp"
+                    android:layout_height="42dp"
                     android:scaleType="centerInside" />
 
                 <TextView
                     android:id="@+id/item_upload"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignBottom="@+id/item_upload_button"
+                    android:layout_marginLeft="12dp"
+                    android:layout_below="@id/item_upload_button"
                     android:gravity="center"
                     android:minWidth="24dp"
                     android:text="上传列表"
-                    android:textColor="@color/white"
                     android:textSize="10sp" />
 
             </RelativeLayout>
