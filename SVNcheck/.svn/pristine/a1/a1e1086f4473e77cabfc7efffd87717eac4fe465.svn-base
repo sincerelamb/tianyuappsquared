@@ -1,0 +1,90 @@
+package com.tygas.tianyu.tianyu.ui.adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
+import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.model.FirstProtect;
+import com.tygas.tianyu.tianyu.ui.model.TimingProtect;
+import com.tygas.tianyu.tianyu.ui.view.activity.FPinfoActivity;
+import com.tygas.tianyu.tianyu.ui.view.activity.TpInfoActivity;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/3/3.
+ */
+public class TimingProtectAdapter  extends UltimateViewAdapter<TimingProtectAdapter.TpViewHodler> {
+
+    private List<TimingProtect> list;
+    private Context context;
+
+    public TimingProtectAdapter (Context context,List<TimingProtect> list){
+        this.context = context;
+        this.list = list;
+    }
+
+
+    @Override
+    public TpViewHodler getViewHolder(View view) {
+        return new TpViewHodler(view);
+    }
+
+    @Override
+    public TpViewHodler onCreateViewHolder(ViewGroup parent) {
+
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.tpcustomers_layout_item, parent, false);
+        TpViewHodler vh = new TpViewHodler(v);
+        return vh;
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return list.size();
+    }
+
+    @Override
+    public long generateHeaderId(int position) {
+        return 0;
+    }
+
+    @Override
+    public void onBindViewHolder(TpViewHodler holder, int position) {
+        if (position >= list.size()) {
+            return;
+        }
+        holder.rl_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tp_info_intent = new Intent(context, TpInfoActivity.class);
+                context.startActivity(tp_info_intent);
+            }
+        });
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    class TpViewHodler extends UltimateRecyclerviewViewHolder {
+        private RelativeLayout rl_info;
+        public TpViewHodler(View itemView) {
+            super(itemView);
+            rl_info = (RelativeLayout) itemView.findViewById(R.id.item_tpcustomers_info);
+        }
+    }
+}

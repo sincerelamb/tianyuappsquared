@@ -1,0 +1,83 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.PersonHomeSetAdapter;
+import com.tygas.tianyu.tianyu.ui.model.PersonHomeSetModel;
+import com.tygas.tianyu.tianyu.ui.model.UserKPI;
+
+import java.util.ArrayList;
+
+/**
+ * Created by SJTY_YX on 2016/3/15.
+ *
+ * 我的显示页面
+ *
+ */
+public class PersonHomeShowSetAvtivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ImageView backImageView;//返回按钮
+    private ListView listView;
+
+    private PersonHomeSetAdapter adapter;
+
+    private ArrayList<UserKPI> allkpis = new ArrayList<>();
+
+    private static final String LOG_TAG = "PersonHomeShowSetAvtivity";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_personhomeshowset);
+        initView();
+        initUserKpi();
+        initData();
+    }
+
+    private void initUserKpi() {
+        SharedPreferences ps = PreferenceManager.getDefaultSharedPreferences(this);
+        String psString = ps.getString(PersonHomePageActivity.SAVE_TAG, "");
+        if(!"".equals(psString)){
+            String[] kpis = psString.split(",");
+            for(int i=0;i<kpis.length;i++) {
+                UserKPI userKPI = new UserKPI();
+                userKPI.setTitle(kpis[i].substring(0, kpis[i].length() - 1));
+                if (kpis[i].endsWith("F")) {//不显示
+                    userKPI.setIsShow(false);
+                } else {//显示
+                    userKPI.setIsShow(true);
+                }
+                allkpis.add(userKPI);
+            }
+        }
+    }
+
+
+    private void initData() {
+        adapter = new PersonHomeSetAdapter(allkpis,this);
+        listView.setAdapter(adapter);
+    }
+
+    private void initView() {
+        backImageView = (ImageView) findViewById(R.id.activity_personhomeshowset_iv_back);
+        backImageView.setOnClickListener(this);
+        listView = (ListView) findViewById(R.id.activity_personhomeshowset_lv_content);
+    }//end initView
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activity_personhomeshowset_iv_back://点击了返回按钮
+                finish();
+                break;
+        }
+    }//end onclick
+}

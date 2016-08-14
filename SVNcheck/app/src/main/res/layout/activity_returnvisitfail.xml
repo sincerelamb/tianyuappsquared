@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <ImageView
+            android:id="@+id/activity_returnvisitfail_iv_back"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/back"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="回访失败"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activity_returnvisitfail_tv_save"
+            android:layout_width="50dp"
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/save_selector" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#2666" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="通话时长"
+            android:textSize="16sp"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/activity_returnvisitfail_iv_playIcon"
+            android:src="@mipmap/luyin"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activity_returnvisitfail_tv_duration"
+            android:layout_toLeftOf="@id/activity_returnvisitfail_iv_playIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="0:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/activtiy_returnvisitfail_rl_isyouxiao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="是否有效"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/activtiy_returnvisitfail_cb_isyouxiao"
+                android:layout_width="34dp"
+                android:layout_height="28dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/pingpaitexin_selector"
+                android:button="@null" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="#2666" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="备注"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/activity_returnvisitfail_et_remark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请输入"
+            android:lines="5"
+            android:maxLength="250"
+            android:minHeight="50dp"
+            android:textColor="@color/appBlack"
+            android:textColorHint="@color/appOrange"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/activity_returnvisitfail_ll_time"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/activity_returnvisitfail_tv_later"
+            android:gravity="center"
+            android:text="稍后回访"
+            android:tag="1"
+            android:textSize="14sp"
+            android:textColor="#a000"
+            android:layout_weight="1"
+            android:background="@drawable/back_selector_orange"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/activity_returnvisitfail_tv_tom"
+            android:text="明日回访"
+            android:tag="2"
+            android:gravity="center"
+            android:background="@drawable/back_selector_orange"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#a000"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/activity_returnvisitfail_tv_self"
+            android:text="约定回访"
+            android:tag="3"
+            android:background="@drawable/back_selector_orange"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="#a000"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:text="下次回访日期"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/activity_returnvisitfail_tv_nextTime"
+            android:padding="10dp"
+            android:text="2015-11-12"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:background="#2666"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+</LinearLayout>

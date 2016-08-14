@@ -1,0 +1,183 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.CallLog;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.context.MyAppCollection;
+import com.tygas.tianyu.tianyu.context.PhonStateLisen;
+import com.tygas.tianyu.tianyu.ui.adapter.PtCustomersFragmentPageAdapter;
+import com.tygas.tianyu.tianyu.ui.model.PtCustomer;
+import com.tygas.tianyu.tianyu.ui.view.fragment.CustomersInfoFragment;
+import com.tygas.tianyu.tianyu.ui.view.fragment.CustomersProcessFragment;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+/**
+ * Created by SJTY_YX on 2016/1/20.
+ * 线索的详细信息页面
+ */
+public class PtCustomersDetailActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
+
+    private PtCustomer customer;
+
+    private ImageView returnImageView;//返回按钮
+    private ViewPager viewPager;
+    private TabLayout tabLayout;//联动的菜单
+
+    private PtCustomersFragmentPageAdapter adapter;
+    private CustomersInfoFragment customersInfoFragment;
+    private CustomersProcessFragment processFragment;
+    ArrayList<Fragment> fragments;
+
+    private TelephonyManager telephonyManager;
+    private PhonStateLisen phonStateLisen;
+    private String recordPath;//录音文件的地址
+
+    private static final String LOG_TAG = "PtCustomersDetailActivity";
+    public static final int CALL_PHONE_FISINH = 0x0002;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_ptcustomersdetail);
+        if (getIntent().getSerializableExtra("data") == null) {
+            finish();
+        } else {
+            customer = (PtCustomer) getIntent().getSerializableExtra("data");
+        }
+
+        MyAppCollection app = (MyAppCollection) getApplicationContext();
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        phonStateLisen = app.getPhonStateLisen();
+        telephonyManager.listen(phonStateLisen, PhoneStateListener.LISTEN_CALL_STATE);
+
+        initView();
+
+    }
+
+    public void setRecordPath(String recordPath) {
+        this.recordPath = recordPath;
+    }
+
+    private void initView() {
+        returnImageView = (ImageView) findViewById(R.id.activity_ptcustomersdetail_tv_return);
+        returnImageView.setOnClickListener(this);
+        tabLayout = (TabLayout) findViewById(R.id.activity_ptcustomersdetail_tl);
+        viewPager = (ViewPager) findViewById(R.id.activity_ptcustomersdetail_vp);
+
+        customersInfoFragment = new CustomersInfoFragment(phonStateLisen, this);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", customer);
+        customersInfoFragment.setArguments(bundle);
+
+        Bundle bundle1 = new Bundle();
+        bundle1.putSerializable("data", customer);
+        processFragment = new CustomersProcessFragment(phonStateLisen, this);
+        processFragment.setArguments(bundle1);
+        fragments = new ArrayList<Fragment>();
+
+        fragments.add(customersInfoFragment);
+        fragments.add(processFragment);
+        adapter = new PtCustomersFragmentPageAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(adapter);
+        //viewPager.addOnPageChangeListener(this);
+        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabsFromPagerAdapter(adapter);
+
+    }//end initView
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(LOG_TAG, "[requestCode]" + requestCode);
+        if (requestCode == CALL_PHONE_FISINH) {
+            Toast.makeText(this, "录音结束", Toast.LENGTH_SHORT).show();
+
+            //获取通话记录
+            ContentResolver resolver = getContentResolver();
+            Cursor query = resolver.query(CallLog.Calls.CONTENT_URI,
+                    null, null, null, CallLog.Calls.DATE + " desc limit 1");
+
+            if (query == null) {
+                Toast.makeText(this, "读取通话记录失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            query.moveToFirst();
+            String number = query.getString(query.getColumnIndex(CallLog.Calls.NUMBER));
+            long duration = query.getLong(query.getColumnIndex(CallLog.Calls.DURATION));//通话时长
+            if (number.equals(customer.getCustomerPhone()) && duration != 0) {
+                Log.i(LOG_TAG, "[ok]");
+                Intent intent = new Intent();
+                intent.putExtra("data", customer);
+                intent.putExtra("path", recordPath);
+                intent.putExtra("duration", duration);
+                intent.setClass(this, ReturnVisitOk.class);
+                startActivity(intent);
+            } else {
+                Log.i(LOG_TAG, "[fail]" + number + " " + customer.getCustomerPhone() + "  " + duration);
+                Intent intent = new Intent();
+                intent.putExtra("data", customer);
+                intent.putExtra("path", recordPath);
+                intent.setClass(this, ReturnVisitFail.class);
+                //删除录音文件
+                File temp = new File(recordPath);
+                if (temp.exists() && temp.isFile()) {
+                    temp.delete();
+                }
+                //intent.setClass(this,ReturnVisitOk.class);
+                startActivity(intent);
+            }
+        }
+    }//end onActivityResult
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.activity_ptcustomersdetail_tv_return://点击了返回按钮
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        int position = tab.getPosition();
+        viewPager.setCurrentItem(position);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+}

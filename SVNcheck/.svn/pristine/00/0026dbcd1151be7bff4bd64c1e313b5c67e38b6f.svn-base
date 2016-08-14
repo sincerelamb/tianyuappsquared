@@ -1,0 +1,41 @@
+package com.tygas.tianyu.tianyu.utils;
+
+import com.tygas.tianyu.tianyu.ui.model.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Created by Administrator on 2016/1/21.
+ */
+public class JsonParser {
+    private static String LOGIN_SUCCESS = "Success";
+    private static String LOGIN_FAIL = "Fail";
+    private static String UserPWIncorrent="UserPWIncorrent";
+
+    public static User loginParser(String string) {
+        User user = new User();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            if (LOGIN_FAIL.equals(status)||UserPWIncorrent.equals(status)) {
+                String message = jsonObject.getString("message");
+                user.setIsLoginSuccess(false);
+                user.setLoginInformation(message);
+            } else if (LOGIN_SUCCESS.equals(status)) {
+                String message = jsonObject.getString("message");
+                String data_str = jsonObject.getString("data");
+                JSONObject data = new JSONObject(data_str);
+                user.setIsLoginSuccess(true);
+                user.setLoginInformation(message);
+                user.setEmpId(data.getString("EmpId"));
+                user.setEmpName(data.getString("EmpName"));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+}

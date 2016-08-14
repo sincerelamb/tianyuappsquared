@@ -1,0 +1,63 @@
+package com.tygas.tianyu.tianyu.ui.model;
+
+/**
+ * Created by SJTY_YX on 2016/3/16.
+ *
+ * 用户的kpi
+ *
+ */
+public class UserKPI {
+
+    private String title;
+    private String Num;
+    private boolean isShow;//是否在工作主页上面显示 该kpi
+
+    @Override
+    public String toString() {
+        return isShow?title+"T":title+"F"; // 会将这个保存到 shared
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserKPI userKPI = (UserKPI) o;
+
+        return !(title != null ? !title.equals(userKPI.title) : userKPI.title != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        if(title==null){
+            this.title="";
+        }else{
+            this.title = title.trim();
+        }
+    }
+
+    public String getNum() {
+        return Num;
+    }
+
+    public void setNum(String num) {
+        Num = num;
+    }
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setIsShow(boolean isShow) {
+        this.isShow = isShow;
+    }
+}

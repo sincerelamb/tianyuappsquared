@@ -1,0 +1,58 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
+import android.widget.Toast;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.MyUltiRecycleAdapter;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+
+public class PtCustomersActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_pt_customers);
+        final UltimateRecyclerView recyclerView = (UltimateRecyclerView) findViewById(R.id.ultimate_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.enableLoadmore();
+        MyUltiRecycleAdapter adapter = new MyUltiRecycleAdapter();
+        adapter.setCustomLoadMoreView(LayoutInflater.from(this)
+                .inflate(R.layout.custom_bottom_progressbar, null));
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setOnLoadMoreListener(new UltimateRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+                Toast.makeText(PtCustomersActivity.this, "LoadMore", Toast.LENGTH_SHORT).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        //simpleRecyclerViewAdapter.insert("More " + moreNum++, simpleRecyclerViewAdapter.getAdapterItemCount());
+
+                    }
+                }, 1000);
+            }
+        });
+        recyclerView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // simpleRecyclerViewAdapter.insert(moreNum++ + "  Refresh things", 0);
+                        recyclerView.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+
+    }
+}

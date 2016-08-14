@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\project\\Tianyu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\white_dot.png",
+        "source": "D:\\project\\Tianyu\\app\\src\\main\\res\\mipmap-hdpi\\white_dot.png"
+    },
+    {
+        "merged": "D:\\project\\Tianyu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\dark_dot.png",
+        "source": "D:\\project\\Tianyu\\app\\src\\main\\res\\mipmap-hdpi\\dark_dot.png"
+    },
+    {
+        "merged": "D:\\project\\Tianyu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "D:\\project\\Tianyu\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    }
+]

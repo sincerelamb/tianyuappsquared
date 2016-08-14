@@ -1,0 +1,171 @@
+package com.tygas.tianyu.tianyu.utils;
+
+import android.util.Log;
+
+import com.tygas.tianyu.tianyu.ui.model.CpCustomer;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.ui.model.UserPtInfoModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/1/21.
+ */
+public class JsonParser {
+    private static String SUCCESS = "Success";
+    private static String FAIL = "Fail";
+    private static String UserPWIncorrent = "UserPWIncorrent";
+
+    public static User loginParser(String string) {
+
+        User user = new User();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+
+            String message = jsonObject.getString("message");
+            user.setLoginInformation(message);
+            String data_str = jsonObject.getString("data");
+            JSONObject data = new JSONObject(data_str);
+
+            if (FAIL.equals(status) || UserPWIncorrent.equals(status)) {
+                user.setIsLoginSuccess(false);
+            } else if (SUCCESS.equals(status)) {
+                user.setIsLoginSuccess(true);
+                user.setEmpId(data.getString("EmpID"));
+                user.setEmpName(data.getString("EmpName"));
+                JSONObject dataList = data.getJSONObject("SelectDataList");
+                JSONArray channelList = dataList.getJSONArray("ChannelList");
+                List<UserPtInfoModel> userPtInfoModels_channel = new ArrayList<>();
+                if (null != channelList && channelList.length() > 0) {
+                    for (int i = 0; i < channelList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = channelList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_channel.add(userPtInfoModel);
+                    }
+                    user.setList_Channel(userPtInfoModels_channel);
+                }
+
+
+                JSONArray useageList = dataList.getJSONArray("UseageList");
+                List<UserPtInfoModel> userPtInfoModels_useage = new ArrayList<>();
+                if (null != useageList && useageList.length() > 0) {
+                    for (int i = 0; i < useageList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = useageList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_useage.add(userPtInfoModel);
+                    }
+                    user.setList_Useage(userPtInfoModels_useage);
+                }
+
+
+                JSONArray brandList = dataList.getJSONArray("OtherBrandList");
+                List<UserPtInfoModel> userPtInfoModels_brand = new ArrayList<>();
+                if (null != brandList && brandList.length() > 0) {
+                    for (int i = 0; i < brandList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = brandList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_brand.add(userPtInfoModel);
+                    }
+                    user.setList_Brand(userPtInfoModels_brand);
+                }
+
+                JSONArray carSeriesList = dataList.getJSONArray("OtherSeriesList");
+                List<UserPtInfoModel> userPtInfoModels_carSeries = new ArrayList<>();
+                if (null != carSeriesList && carSeriesList.length() > 0) {
+                    for (int i = 0; i < carSeriesList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = carSeriesList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_carSeries.add(userPtInfoModel);
+                    }
+                    user.setList_CarSeries(userPtInfoModels_carSeries);
+                }
+
+
+                JSONArray focusList = dataList.getJSONArray("FocusCarmodelList");
+                List<UserPtInfoModel> userPtInfoModels_focus = new ArrayList<>();
+                if (null != focusList && focusList.length() > 0) {
+                    for (int i = 0; i < focusList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = focusList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_focus.add(userPtInfoModel);
+                    }
+                    user.setList_Focus(userPtInfoModels_focus);
+                }
+
+                JSONArray checkColorList = dataList.getJSONArray("CheckColorList");
+                List<UserPtInfoModel> userPtInfoModels_checkColor = new ArrayList<>();
+                if (null != checkColorList && checkColorList.length() > 0) {
+                    for (int i = 0; i < checkColorList.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = checkColorList.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_checkColor.add(userPtInfoModel);
+                    }
+                    user.setList_CheckColorList(userPtInfoModels_checkColor);
+                }
+
+                JSONArray failTypeist = dataList.getJSONArray("FailType");
+                List<UserPtInfoModel> userPtInfoModels_failType = new ArrayList<>();
+                if (null != failTypeist && failTypeist.length() > 0) {
+                    for (int i = 0; i < failTypeist.length(); i++) {
+                        UserPtInfoModel userPtInfoModel = new UserPtInfoModel();
+                        JSONObject jsonObject_i = failTypeist.getJSONObject(i);
+                        userPtInfoModel.setID(jsonObject_i.getString("ID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("PID"));
+                        userPtInfoModel.setID(jsonObject_i.getString("Name"));
+                        userPtInfoModels_failType.add(userPtInfoModel);
+                    }
+                    user.setList_FailType(userPtInfoModels_failType);
+                }
+
+                Log.d("userdata", user.toString());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public List<CpCustomer> cpCustomersParser(String string) {
+        ArrayList<CpCustomer> cpCustomers = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            String status = jsonObject.getString("status");
+            if (SUCCESS.equals(status) || UserPWIncorrent.equals(status)) {
+                String message = jsonObject.getString("message");
+
+            } else {
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return cpCustomers;
+    }
+
+}
