@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tygas.tianyu.tianyu">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <application
+        android:name=".context.MyAppCollection"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.view.activity.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.view.activity.PtCustomersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.view.activity.ReturnVisitFail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.view.activity.ReturnVisitOk"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.view.activity.PtCustomersDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.view.activity.PtCustomersFilterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.view.activity.GuideActivity" />
+        <activity android:name=".ui.view.activity.LoginActivity" />
+        <activity android:name=".ui.view.activity.MainActivity" />
+        <activity android:name=".ui.view.activity.CpCustomActivity" />
+        <activity android:name=".ui.view.activity.CpCustomInfoActivity" />
+        <activity android:name=".ui.view.activity.CpCustomerScreenActivity" />
+        <activity android:name=".ui.view.activity.UrlSetActivity"></activity>
+    </application>
+
+</manifest>

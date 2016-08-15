@@ -1,0 +1,1394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tygas.tianyu.tianyu.ui.view.activity.CpCustomInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <ImageView
+            android:id="@+id/activity_cpcustominfo_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="viewOnclick"
+            android:scaleType="centerInside"
+            android:src="@drawable/back_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="补全客户到店信息"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="saveData"
+            android:scaleType="fitXY"
+            android:src="@drawable/save_selector" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#aaaaaa" />
+
+    <com.tygas.tianyu.tianyu.ui.view.customview.MyScorlView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="客户信息"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#00bb00" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="客户姓名"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_ed_name"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="填写"
+                            android:maxLength="30"
+                            android:singleLine="true"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_sex"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="客户性别"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="11"
+                            android:maxLines="2"
+                            android:maxWidth="80dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="客户电话"
+                            android:textSize="12sp" />
+
+                        <!--<AutoCompleteTextView-->
+                        <!--android:id="@+id/activity_cpinfo_et_phone"-->
+                        <!--android:layout_width="80dp"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:gravity="center_vertical|right"-->
+                        <!--android:background="#00ffffff"-->
+                        <!--android:completionThreshold="1"-->
+                        <!--android:dropDownWidth="80dp"-->
+                        <!--android:dropDownHeight="200dp"-->
+                        <!--android:hint="填写"-->
+                        <!--android:maxLength="15"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:textColorHint="#aaaaaa"-->
+                        <!--android:textSize="14sp" />-->
+
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_et_phone"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="填写"
+                            android:maxLength="18"
+                            android:singleLine="true"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="备用电话"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_et_phone_sq"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="填写"
+                            android:maxLength="18"
+                            android:singleLine="true"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="微信账号"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_et_wechat"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="填写"
+                            android:maxLength="18"
+                            android:singleLine="true"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_province"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="常住省"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_province"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="11"
+                            android:maxLines="2"
+                            android:maxWidth="80dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_city"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="常住市"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="11"
+                            android:maxLines="2"
+                            android:maxWidth="90dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_area"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="常住县（区）"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="11"
+                            android:maxLines="2"
+                            android:maxWidth="80dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="详细地址"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_et_infoaddress"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="填写"
+                            android:maxLength="25"
+                            android:singleLine="true"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/activity_cpinfo_ll_infochannel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+
+                        android:id="@+id/activity_cpinfo_rl_infochannel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="信息渠道"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_infochannel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="7"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_shopchannel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="接触渠道"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_shopchannel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_cpinfo_ll_customerhaver"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+
+                        android:id="@+id/activity_cpinfo_rl_customerhaver"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="潜客拥有者"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_customerhaver"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="请选择"
+                            android:singleLine="true"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/activity_cpinfo_ll_remark"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="备注"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_et_remark"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="请输入"
+                            android:maxLength="30"
+                            android:singleLine="true"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="客户意向"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#00bb00" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_isdrive"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="是否试驾"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_isdrive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_followeperson"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="随行人数"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_followeperson"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_intention_garde"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="意向等级"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_intention_garde"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_intention_pingpai"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="意向品牌"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_intention_pingpai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="8"
+                            android:maxLines="1"
+                            android:maxWidth="100dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_intention_chexi"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="意向车系"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_intention_chexi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="8"
+                            android:maxLines="1"
+                            android:maxWidth="100dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_intention_chexin"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="意向车型"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_intention_chexin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLines="2"
+                            android:maxWidth="100dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_date_nigou"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="拟购时间"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_date_nigou"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="8"
+                            android:maxLines="1"
+                            android:maxWidth="100dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_date_jieting"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="方便接听时段"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_date_jieting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLines="2"
+                            android:maxWidth="80dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_intention_use"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="购车用途"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_buyuse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+
+                        android:id="@+id/activity_cpinfo_rl_date_yujihuifang"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="预计回访时间"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_date_yujihuifang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLines="1"
+                            android:maxWidth="80dp"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/activity_cpinfo_rl_paytype"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/customer_info_layout_selector"
+                        android:clickable="true"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="付款方式"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/activity_cpinfo_tv_paytype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="选择"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#bbbbbb" />
+
+                    <RelativeLayout
+
+                        android:id="@+id/activity_cpinfo_rl_QuoteSituation"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="viewOnclick">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="报价信息"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/activity_cpinfo_tv_QuoteSituation"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical|right"
+                            android:hint="输入"
+                            android:maxLength="10"
+                            android:maxLines="2"
+                            android:textColor="#333333"
+                            android:textColorHint="#aaaaaa"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#bbbbbb" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="关注特性"
+                    android:textColor="#666666" />
+
+                <com.tygas.tianyu.tianyu.ui.view.customview.FocuGirdView
+                    android:id="@+id/activity_cpinfo_gv_focus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:horizontalSpacing="20dp"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="15dp" />
+                　
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#bbbbbb" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="洽谈记录"
+                    android:textColor="#666666" />
+
+                <EditText
+                    android:id="@+id/activity_cpinfo_et_talkrecord"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:hint="请输入谈话记录（必填）"
+                    android:maxLength="250"
+                    android:minHeight="100dp"
+                    android:textColor="#333333"
+                    android:textColorHint="#aaaaaa"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#bbbbbb" />
+
+        </LinearLayout>
+    </com.tygas.tianyu.tianyu.ui.view.customview.MyScorlView>
+</LinearLayout>

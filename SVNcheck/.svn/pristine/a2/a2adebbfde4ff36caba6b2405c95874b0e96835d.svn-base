@@ -1,0 +1,345 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.context.MyAppCollection;
+import com.tygas.tianyu.tianyu.data.UrlData;
+import com.tygas.tianyu.tianyu.ui.adapter.CpCustomFocusAdapter;
+import com.tygas.tianyu.tianyu.ui.model.CityModel;
+import com.tygas.tianyu.tianyu.ui.model.CpCustomer;
+import com.tygas.tianyu.tianyu.ui.model.DistrictModel;
+import com.tygas.tianyu.tianyu.ui.model.ProvinceModel;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.ui.model.UserPtInfoModel;
+import com.tygas.tianyu.tianyu.utils.HttpUtilsHelper;
+import com.tygas.tianyu.tianyu.utils.JsonParser;
+import com.tygas.tianyu.tianyu.utils.MyDialogHelper;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+import com.tygas.tianyu.tianyu.utils.XmlParserHandler;
+import com.tygas.tianyu.tianyu.utils.XutilsRequest;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+public class CpCustomInfoActivity extends Activity {
+
+
+    private EditText et_references_carnumber;
+    private EditText et_info_channel;
+
+
+    private EditText et_intention_chexin;
+    private EditText et_intention_chese;
+
+    private EditText et_buycarjinyan;
+    private CheckBox cb_focus_brand;
+    private CheckBox cb_focus_price;
+    private CheckBox cb_focus_power;
+    private CheckBox cb_focus_safe;
+    private CheckBox cb_focus_fuelconsumption;
+    private CheckBox cb_focus_appearance;
+    private CheckBox cb_focus_confortable;
+    private CheckBox cb_focus_configuration;
+    private CheckBox cb_focus_other;
+    private EditText et_talkrecord;
+
+
+    private TextView tv_name;
+    private TextView tv_phone;
+
+    private TextView tv_isdrive;
+    private TextView tv_followeperson;
+    private TextView tv_intention_garde;
+    private TextView tv_intention_chexi;
+    private TextView tv_buyuse;
+    private TextView tv_shop_channel;
+    private TextView tv_province;
+    private TextView tv_city;
+    private TextView tv_area;
+
+    private GridView gv_focus;
+    private User user;
+
+
+    /**
+     * 所有省
+     */
+    protected String[] mProvinceDatas;
+    /**
+     * key - 省 value - 市
+     */
+    protected Map<String, String[]> mCitisDatasMap = new HashMap<String, String[]>();
+    /**
+     * key - 市 values - 区
+     */
+    protected Map<String, String[]> mDistrictDatasMap = new HashMap<String, String[]>();
+
+    private String province;
+    private String city;
+    private String district;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_cp_custom_info);
+        user = ((MyAppCollection) getApplicationContext()).getUser();
+        initProvinceDatas();
+        initView();
+        initData();
+    }
+
+    private void initView() {
+        tv_name = (TextView) findViewById(R.id.activity_cpinfo_tv_name);
+        tv_phone = (TextView) findViewById(R.id.activity_cpinfo_tv_phone);
+
+
+        et_references_carnumber = (EditText) findViewById(R.id.activity_cpinfo_et_references_carnumber);
+        et_info_channel = (EditText) findViewById(R.id.activity_cpinfo_et_infochannel);
+        et_intention_chexin = (EditText) findViewById(R.id.activity_cpinfo_et_intention_chexin);
+        et_intention_chese = (EditText) findViewById(R.id.activity_cpinfo_et_intention_chese);
+        et_buycarjinyan = (EditText) findViewById(R.id.activity_cpinfo_et_buycarjinyan);
+
+
+//        cb_focus_brand = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_brand);
+//        cb_focus_price = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_price);
+//        cb_focus_power = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_power);
+//        cb_focus_safe = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_safe);
+//        cb_focus_fuelconsumption = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_fuelconsumption);
+//        cb_focus_appearance = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_appearance);
+//        cb_focus_confortable = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_confortable);
+//        cb_focus_configuration = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_configuration);
+//        cb_focus_other = (CheckBox) findViewById(R.id.activity_cpinfo_cb_focus_other);
+        et_talkrecord = (EditText) findViewById(R.id.activity_cpinfo_et_talkrecord);
+
+        tv_isdrive = (TextView) findViewById(R.id.activity_cpinfo_tv_isdrive);
+        tv_followeperson = (TextView) findViewById(R.id.activity_cpinfo_tv_followeperson);
+        tv_intention_garde = (TextView) findViewById(R.id.activity_cpinfo_tv_intention_garde);
+        tv_intention_chexi = (TextView) findViewById(R.id.activity_cpinfo_tv_intention_chexi);
+        tv_buyuse = (TextView) findViewById(R.id.activity_cpinfo_tv_buyuse);
+        tv_shop_channel = (TextView) findViewById(R.id.activity_cpinfo_tv_shopchannel);
+        tv_province = (TextView) findViewById(R.id.activity_cpinfo_tv_province);
+        tv_city = (TextView) findViewById(R.id.activity_cpinfo_tv_city);
+        tv_area = (TextView) findViewById(R.id.activity_cpinfo_tv_area);
+        gv_focus = (GridView) findViewById(R.id.activity_cpinfo_gv_focus);
+        gv_focus.setAdapter(new CpCustomFocusAdapter(this, user.getList_Focus()));
+    }
+
+    private void initData() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("CpData");
+        CpCustomer cpData = (CpCustomer) (bundle.getSerializable("CpData"));
+        tv_name.setText(cpData.getCustomerName());
+        tv_phone.setText(cpData.getCustomerPhone());
+    }
+
+    public void saveData(View view) {
+
+    }
+
+    public void viewOnclick(View view) {
+        switch (view.getId()) {
+            case R.id.activity_cpinfo_rl_isdrive:
+                MyDialogHelper myDialogHelper_isdriver = new MyDialogHelper();
+                List<String> list_isdriver = new ArrayList<String>();
+                list_isdriver.add("是");
+                list_isdriver.add("否");
+                myDialogHelper_isdriver.showListDialog(this, "是否试驾", list_isdriver, (TextView) view.findViewById(R.id.activity_cpinfo_tv_isdrive));
+                break;
+            case R.id.activity_cpinfo_rl_followeperson:
+                MyDialogHelper myDialogHelper_flperson = new MyDialogHelper();
+                List<String> list_flperson = new ArrayList<String>();
+                list_flperson.add("1人");
+                list_flperson.add("2人");
+                list_flperson.add("3人");
+                list_flperson.add("4人");
+                list_flperson.add("5人");
+                myDialogHelper_flperson.showListDialog(this, "随行人数", list_flperson, (TextView) view.findViewById(R.id.activity_cpinfo_tv_followeperson));
+                break;
+            case R.id.activity_cpinfo_rl_shopchannel:
+                MyDialogHelper myDialogHelper_shopchannel = new MyDialogHelper();
+                List<UserPtInfoModel> list_channel = user.getList_Channel();
+                if (list_channel != null && list_channel.size() > 0) {
+                    List<String> list_shopchannel = userPtInfoModeltoStringList(list_channel);
+                    myDialogHelper_shopchannel.showListDialog(this, "来店渠道", list_shopchannel, (TextView) view.findViewById(R.id.activity_cpinfo_tv_shopchannel));
+                } else {
+                    Toast.makeText(CpCustomInfoActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.activity_cpinfo_rl_intention_garde:
+                MyDialogHelper myDialogHelper_garde = new MyDialogHelper();
+                List<String> list_garde = new ArrayList<String>();
+                list_garde.add("H");
+                list_garde.add("A");
+                list_garde.add("B");
+                list_garde.add("C");
+                list_garde.add("D");
+                myDialogHelper_garde.showListDialog(this, "意向等级", list_garde, (TextView) view.findViewById(R.id.activity_cpinfo_tv_intention_garde));
+                break;
+            case R.id.activity_cpinfo_rl_intention_chexi:
+                MyDialogHelper myDialogHelper_intention_chexi = new MyDialogHelper();
+                List<UserPtInfoModel> list_intention_chexi = user.getList_CarSeries();
+                if (list_intention_chexi != null && list_intention_chexi.size() > 0) {
+                    List<String> list_chexi = userPtInfoModeltoStringList(list_intention_chexi);
+                    myDialogHelper_intention_chexi.showListDialog(this, "意向车系", list_chexi, (TextView) view.findViewById(R.id.activity_cpinfo_tv_intention_chexi));
+                } else {
+                    Toast.makeText(CpCustomInfoActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.activity_cpinfo_rl_intention_use:
+                MyDialogHelper myDialogHelper_use = new MyDialogHelper();
+                List<UserPtInfoModel> list_ptuse = user.getList_Useage();
+                if (list_ptuse != null && list_ptuse.size() > 0) {
+                    List<String> list_use = userPtInfoModeltoStringList(list_ptuse);
+                    myDialogHelper_use.showListDialog(this, "购车用途", list_use, (TextView) view.findViewById(R.id.activity_cpinfo_tv_buyuse));
+                } else {
+                    Toast.makeText(CpCustomInfoActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.activity_cpinfo_rl_province:
+                MyDialogHelper myDialogHelper_province = new MyDialogHelper();
+                List<String> list_province = Arrays.asList(mProvinceDatas);
+                myDialogHelper_province.showListDialog(this, "常住省", list_province, (TextView) view.findViewById(R.id.activity_cpinfo_tv_province), new MyDialogHelper.DialogCallBack() {
+                    @Override
+                    public void callBack(int position) {
+                        province = mProvinceDatas[position];
+                    }
+                });
+                break;
+            case R.id.activity_cpinfo_rl_city:
+                if (!TextUtils.isEmpty(province)) {
+                    MyDialogHelper myDialogHelper_city = new MyDialogHelper();
+                    final List<String> list_city = Arrays.asList(mCitisDatasMap.get(province));
+                    myDialogHelper_city.showListDialog(this, "常住市", list_city, (TextView) view.findViewById(R.id.activity_cpinfo_tv_city), new MyDialogHelper.DialogCallBack() {
+                        @Override
+                        public void callBack(int position) {
+                            city = list_city.get(position);
+                        }
+                    });
+                } else {
+                    Toast.makeText(CpCustomInfoActivity.this, "请选择省", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+            case R.id.activity_cpinfo_rl_area:
+                if (!TextUtils.isEmpty(city)) {
+                    MyDialogHelper myDialogHelper_area = new MyDialogHelper();
+                    List<String> list_area = Arrays.asList(mDistrictDatasMap.get(city));
+
+                    myDialogHelper_area.showListDialog(this, "常住区", list_area, (TextView) view.findViewById(R.id.activity_cpinfo_tv_area));
+                } else {
+                    Toast.makeText(CpCustomInfoActivity.this, "请选择市", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+
+        }
+    }
+
+//    private void downLoadData() {
+//        HttpUtilsHelper.httpUtils.send(HttpRequest.HttpMethod.POST, UrlData.CPCUSTOMER_URL, XutilsRequest.getCpCustomerList(user.getEmpId(), "", "", "2015-11-01", "2015-12-25", index, PAGESIZE),
+//                new RequestCallBack<String>() {
+//                    @Override
+//                    public void onSuccess(ResponseInfo<String> objectResponseInfo) {
+//
+//                        Log.d("cpresult", objectResponseInfo.result);
+//                        List<CpCustomer> cpCustomerList = JsonParser.cpCustomersParser(objectResponseInfo.result);
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(HttpException e, String s) {
+//                        Toast.makeText(CpCustomInfoActivity.this, "网络请求出错，请检查网络", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
+//    }
+
+    private List<String> userPtInfoModeltoStringList(List<UserPtInfoModel> list) {
+        List<String> strings = new ArrayList<String>();
+        for (UserPtInfoModel userPtInfoModel : list) {
+            String name = userPtInfoModel.getName();
+            strings.add(name);
+        }
+        return strings;
+    }
+
+    /**
+     * 解析省市区的XML数据
+     */
+
+    protected void initProvinceDatas() {
+        List<ProvinceModel> provinceList = null;
+        AssetManager asset = getAssets();
+        try {
+            InputStream input = asset.open("province_data.xml");
+            // 创建一个解析xml的工厂对象
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            // 解析xml
+            SAXParser parser = spf.newSAXParser();
+            XmlParserHandler handler = new XmlParserHandler();
+            parser.parse(input, handler);
+            input.close();
+            // 获取解析出来的数据
+            provinceList = handler.getDataList();
+
+            //*/
+            mProvinceDatas = new String[provinceList.size()];
+            for (int i = 0; i < provinceList.size(); i++) {
+                // 遍历所有省的数据
+                mProvinceDatas[i] = provinceList.get(i).getName();
+                List<CityModel> cityList = provinceList.get(i).getCityList();
+                String[] cityNames = new String[cityList.size()];
+                for (int j = 0; j < cityList.size(); j++) {
+                    // 遍历省下面的所有市的数据
+                    cityNames[j] = cityList.get(j).getName();
+                    List<DistrictModel> districtList = cityList.get(j).getDistrictList();
+                    String[] distrinctNameArray = new String[districtList.size()];
+                    DistrictModel[] distrinctArray = new DistrictModel[districtList.size()];
+                    for (int k = 0; k < districtList.size(); k++) {
+                        // 遍历市下面所有区/县的数据
+                        DistrictModel districtModel = new DistrictModel(districtList.get(k).getName(), districtList.get(k).getZipcode());
+                        // 区/县对于的邮编，保存到mZipcodeDatasMap
+                        // mZipcodeDatasMap.put(districtList.get(k).getName(), districtList.get(k).getZipcode());
+                        distrinctArray[k] = districtModel;
+                        distrinctNameArray[k] = districtModel.getName();
+                    }
+                    // 市-区/县的数据，保存到mDistrictDatasMap
+                    mDistrictDatasMap.put(cityNames[j], distrinctNameArray);
+                }
+                // 省-市的数据，保存到mCitisDatasMap
+                mCitisDatasMap.put(provinceList.get(i).getName(), cityNames);
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
+}

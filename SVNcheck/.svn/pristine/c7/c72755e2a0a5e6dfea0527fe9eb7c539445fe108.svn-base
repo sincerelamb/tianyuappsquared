@@ -1,0 +1,44 @@
+package com.tygas.tianyu.tianyu.ui.adapter;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.model.PartsDetail;
+import com.tygas.tianyu.tianyu.ui.model.RepairProject;
+
+import java.util.ArrayList;
+
+/**
+ * Created by SJTY_YX on 2016/3/2.
+ */
+public class PartsDetailAdapter extends BaseAdapter {
+
+    private ArrayList<PartsDetail> data;
+
+    public PartsDetailAdapter(ArrayList<PartsDetail> data) {
+        this.data = data;
+    }
+
+    @Override
+    public int getCount() {
+        return data.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return data.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return LayoutInflater.from(parent.getContext()).inflate(R.layout.partsdetail_item,parent,false);
+    }
+}

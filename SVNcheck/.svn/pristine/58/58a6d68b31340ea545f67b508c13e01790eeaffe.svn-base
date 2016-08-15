@@ -1,0 +1,77 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.context.MyAppCollection;
+import com.tygas.tianyu.tianyu.ui.model.User;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+
+import java.util.List;
+
+
+public class MainActivity extends Activity {
+
+    private ImageView iv_ptcustomers;
+    private ImageView iv_clue;
+    private ImageView iv_cpcustomers;
+
+    private static final String PT_LIST = "AndroidApp_search_customer";
+    private static final String CLUE_LIST = "AndroidApp_search_clue";
+    private static final String CP_LIST = "AndroidApp_search_customer_list";
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_main);
+        initView();
+    }
+
+    private void initView() {
+        iv_ptcustomers = (ImageView) findViewById(R.id.activity_main_iv_ptcustomers);
+        iv_clue = (ImageView) findViewById(R.id.activity_main_iv_clue);
+        iv_cpcustomers = (ImageView) findViewById(R.id.activity_main_iv_cp);
+        User user = ((MyAppCollection) getApplicationContext()).getUser();
+        List<String> list_pid = user.getList_PID();
+        Log.d("listpid", list_pid.toString());
+        for (String pid : list_pid) {
+            switch (pid) {
+                case PT_LIST:
+                    iv_ptcustomers.setVisibility(View.VISIBLE);
+                    break;
+                case CLUE_LIST:
+                    iv_clue.setVisibility(View.VISIBLE);
+                    break;
+                case CP_LIST:
+                    iv_cpcustomers.setVisibility(View.VISIBLE);
+                    break;
+            }
+//
+//            if (PT_LIST.equals(pid)) {
+//                iv_ptcustomers.setVisibility(View.VISIBLE);
+//            }
+        }
+
+    }
+
+    public void listOnclick(View view) {
+        switch (view.getId()) {
+            case R.id.activity_main_iv_ptcustomers:
+                Intent intent = new Intent(MainActivity.this, PtCustomersActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.activity_main_iv_cp:
+                Intent intent_cp = new Intent(MainActivity.this, CpCustomActivity.class);
+                startActivity(intent_cp);
+                break;
+        }
+    }
+}

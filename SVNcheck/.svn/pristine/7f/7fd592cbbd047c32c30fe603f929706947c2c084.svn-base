@@ -1,0 +1,141 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.tygas.tianyu.tianyu.R;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Created by SJTY_YX on 2016/1/20.
+ */
+public class TestActivity extends AppCompatActivity {
+
+    String loginPath = "http://118.123.249.59:1999/OpenService/App.aspx?type=pcvlist";
+    private static final String LOG_TAG = "TestActivity";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
+        HttpUtils httpUtils = new HttpUtils();
+
+        String username = "admin";
+        String password = "niceeasy";
+        String pc = "BQ2015";
+        String key = "zAt3B&#i&AcdWnHg";
+        String time = String.valueOf(System.currentTimeMillis());
+        String data = getPcvList();
+        Log.i(LOG_TAG, "[时间戳]" + time);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc",pc);
+        requestParams.addBodyParameter("ts",time);
+        requestParams.addBodyParameter("sign",getSign("pcvlist",pc,time,data,key));
+        requestParams.addBodyParameter("data",data);
+
+        httpUtils.send(HttpRequest.HttpMethod.POST, loginPath,requestParams, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                Log.i(LOG_TAG,"[成功返回]"+responseInfo.result);
+
+            }
+
+            @Override
+            public void onFailure(HttpException e, String s) {
+                Log.i(LOG_TAG,"[返回出错]"+s);
+            }
+        });
+    }//end onCreate
+
+    private String getPcvList(){
+        HashMap<String,String> data = new HashMap<>();
+        data.put("empid","1");
+        data.put("customername","");
+        data.put("customerphone","");
+        data.put("customerlevel","");
+        data.put("begintime","2015-11-11");
+        data.put("endtime","2015-12-11");
+        data.put("pageindex","1");
+        data.put("pagesize","10");
+        //return "{\"empid\":\"员工主键编号\",\"customername\":"客户姓名","customerphone":"客户电话","customerlevel":"客户等级","begintime":"应回访开始时间","endtime":"应回访结束时间","pageindex":"1","pagesize":"10"}";
+        return getJsonFromMap(data);
+    }
+
+    private String getJsonFromMap(HashMap<String,String> data){
+        String result = "{";
+        Set<Map.Entry<String, String>> entries = data.entrySet();
+        for(Map.Entry<String,String> entry : entries){
+            result += "\""+entry.getKey()+"\":"+"\""+entry.getValue()+"\",";
+        }
+        result = result.endsWith(",")? result.substring(0,result.length()-1) : result;
+        Log.i(LOG_TAG,result);
+        return result+"}";
+    }
+
+    private String getUserJson(String username,String password){
+        String res = "{\"user\":\""+username+"\",\"pw\":\""+sha1Code(password)+"\"}";
+        Log.i(LOG_TAG,"[账号json]"+res);
+        Log.i(LOG_TAG,"[密码的SHA1]"+sha1Code(password));
+        return res;
+    }
+
+    private String sha1Code(String before){
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            byte[] hash = digest.digest(before.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                if ((b & 0xFF) < 0x10) hex.append("0");
+                hex.append(Integer.toHexString(b & 0xFF));
+            }
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private String md5Code(String before){
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            byte[] hash = digest.digest(before.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                if ((b & 0xFF) < 0x10) hex.append("0");
+                hex.append(Integer.toHexString(b & 0xFF));
+            }
+
+            return hex.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getSign(String type,String pc,String time,String data,String key){
+            StringBuffer sb = new StringBuffer();
+            sb.append(type);
+            sb.append(pc);
+            sb.append(time);
+            sb.append(data);
+            sb.append(key);
+        Log.i(LOG_TAG,"[签名前]"+sb.toString());
+        String result = md5Code(sb.toString()).toUpperCase();
+        Log.i(LOG_TAG,"[sign]"+result);
+        return result;
+    }
+}

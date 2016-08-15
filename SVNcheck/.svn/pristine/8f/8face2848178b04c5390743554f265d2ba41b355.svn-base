@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppSystemBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tygas.tianyu.tianyu.ui.view.activity.FPinfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#327ECA">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="售后保养详情"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activtiy_header_text_size" />
+
+        <ImageView
+            android:id="@+id/activity_fpcustominfo_iv_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/back_selector" />
+    </RelativeLayout>
+
+    <!-- app:tabIndicatorColor 指示器（字体下面的那一个横）显示颜色 -->
+    <!-- app:tabSelectedTextColor 选中的字体颜色 -->
+    <!-- app:tabTextColor 未选中的字体颜色 -->
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/activity_fpcustominfo_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#66d354"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#000000"
+        app:tabTextColor="#666"></android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_fpcustominfo_vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+
+    <Button
+        android:id="@+id/activity_fpcustomers_bt_callout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/customer_callout_selector"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="邀约拨出"
+        android:textColor="#fff"
+        android:textSize="24sp" />
+
+
+</LinearLayout>

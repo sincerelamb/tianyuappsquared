@@ -1,0 +1,96 @@
+package com.tygas.tianyu.tianyu.ui.model;
+
+/**
+ * Created by Administrator on 2016/1/21.
+ */
+public class CpCustomer {
+    private String reciveComeId;
+    private String empName ;
+    private String ComeTime;
+    private String LeaveTime;
+    private String customerName;
+    private String customerPhone;
+    private String carseriesName;
+    private String FollowPeo;
+
+    @Override
+    public String toString() {
+        return "CpCustomer{" +
+                "reciveComeId='" + reciveComeId + '\'' +
+                ", empName='" + empName + '\'' +
+                ", ComeTime='" + ComeTime + '\'' +
+                ", LeaveTime='" + LeaveTime + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", customerPhone='" + customerPhone + '\'' +
+                ", carseriesName='" + carseriesName + '\'' +
+                ", FollowPeo='" + FollowPeo + '\'' +
+                '}';
+    }
+
+    public String getReciveComeId() {
+        return reciveComeId;
+    }
+
+    public void setReciveComeId(String reciveComeId) {
+        this.reciveComeId = reciveComeId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getComeTime() {
+        return ComeTime;
+    }
+
+    public void setComeTime(String comeTime) {
+        ComeTime = comeTime;
+    }
+
+    public String getLeaveTime() {
+        return LeaveTime;
+    }
+
+    public void setLeaveTime(String leaveTime) {
+        LeaveTime = leaveTime;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getCarseriesName() {
+        return carseriesName;
+    }
+
+    public void setCarseriesName(String carseriesName) {
+        this.carseriesName = carseriesName;
+    }
+
+    public String getFollowPeo() {
+        return FollowPeo;
+    }
+
+    public void setFollowPeo(String followPeo) {
+        FollowPeo = followPeo;
+    }
+
+
+
+}

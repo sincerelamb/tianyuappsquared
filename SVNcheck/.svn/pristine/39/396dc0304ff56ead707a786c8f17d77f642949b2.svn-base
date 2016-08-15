@@ -1,0 +1,119 @@
+package com.tygas.tianyu.tianyu.ui.view.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
+import com.tygas.tianyu.tianyu.R;
+import com.tygas.tianyu.tianyu.ui.adapter.CpCustomUltiRecycleAdapter;
+import com.tygas.tianyu.tianyu.ui.adapter.FirstProtectAdapter;
+import com.tygas.tianyu.tianyu.ui.model.CpCustomer;
+import com.tygas.tianyu.tianyu.ui.model.FirstProtect;
+import com.tygas.tianyu.tianyu.utils.SystemBarUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class FirstProtectActivity extends Activity implements View.OnClickListener, UltimateRecyclerView.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+
+    private ImageView backImageView;//返回按钮
+    private ImageView nodata;
+    private TextView tv_find_tatol;
+    private UltimateRecyclerView ultimateRecyclerView;
+
+    private FirstProtectAdapter adapter;
+    private List<FirstProtect> cpList = new ArrayList<FirstProtect>();
+
+    private final int PAGESIZE = 10;
+    private int pageindex = 1;
+
+
+
+    private final int DOWN = 1;
+    private final int UP = 2;
+
+    private String starttime;
+    private String endtime;
+    private String customername;
+    private String customerphone;
+    private String isSuppleState="";
+    private String guwen;
+    private View viewCustoner;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SystemBarUtils.setSystemBarColor(this, "#327ECA");
+        setContentView(R.layout.activity_first_protect);
+        initView();
+    }
+    private void initView() {
+        tv_find_tatol = (TextView) findViewById(R.id.activity_fpcustomer_tv_find_total);
+        nodata = (ImageView) findViewById(R.id.activity_fpcustom_iv_nodata);
+        backImageView = (ImageView) findViewById(R.id.activtiy_fpcustomers_back);
+        backImageView.setOnClickListener(this);
+
+        ultimateRecyclerView = (UltimateRecyclerView) findViewById(R.id.activity_fpcustom_ulry_cplist);
+        ultimateRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ultimateRecyclerView.enableLoadmore();
+        ultimateRecyclerView.setHasFixedSize(false);
+        ultimateRecyclerView.setOnLoadMoreListener(this);
+        ultimateRecyclerView.setDefaultOnRefreshListener(this);
+
+        cpList.add(new FirstProtect());
+        adapter = new FirstProtectAdapter(this, cpList);
+        viewCustoner = View.inflate(this, R.layout.custom_bottom_progressbar, null);
+        adapter.setCustomLoadMoreView(viewCustoner);
+        ultimateRecyclerView.setAdapter(adapter);
+
+        ultimateRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                ultimateRecyclerView.setRefreshing(true);
+            }
+        });
+        onRefresh();
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.activtiy_fpcustomers_back://点击了返回按钮
+                finish();
+                break;
+            case R.id.activtiy_fpcustomers_select:
+                Intent intent = new Intent(this, FpScreenActivity.class);
+//                intent.putExtra("name", customername);
+//                intent.putExtra("phone", customerphone);
+//                intent.putExtra("fromtime", starttime);
+//                intent.putExtra("totime", endtime);
+//                intent.putExtra("issupplestate", isSuppleState);
+//                intent.putExtra("guwen", guwen);
+                startActivityForResult(intent, 0);
+                break;
+        }
+    }
+
+    @Override
+    public void loadMore(int itemsCount, int maxLastVisiblePosition) {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        ultimateRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                ultimateRecyclerView.setRefreshing(false);
+            }
+        });
+
+    }
+}

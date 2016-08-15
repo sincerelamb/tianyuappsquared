@@ -1,0 +1,398 @@
+package com.tygas.tianyu.tianyu.utils;
+
+import android.util.Log;
+
+import com.lidroid.xutils.http.RequestParams;
+import com.tygas.tianyu.tianyu.data.Config;
+import com.tygas.tianyu.tianyu.ui.model.CpCustomer;
+
+import java.io.File;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Created by SJTY_YX on 2016/1/20.
+ */
+public class XutilsRequest {
+
+    public static final String PC = "BQ2015";
+    public static final String KEY = "zAt3B&#i&AcdWnHg";
+    private static final String LOG_TAG = "XutilsRequest";
+
+    //获取到登录的参数
+    public static RequestParams getLoginParams(String username, String password) {
+        RequestParams requestParams = new RequestParams();
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = "{\"user\":\"" + username + "\",\"pw\":\"" + sha1Code(password) + "\"}";
+        String sign = getSign("login", PC, ts, data, KEY);
+        //Log.i(LOG_TAG,"[登录的参数] [ts] "+ts+"  [data] "+data+"  [sign] "+sign+"  [key]"+ KEY);
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("data", data);
+        return requestParams;
+    }
+
+    //获取到意向客户的参数
+    public static RequestParams getPvcList(String empid, String customername, String customerphone,
+                                           String customerlevel, String begintime, String endtime,
+                                           String pageindex, String pagesize, String cusempname) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("empid", empid);
+        map.put("customername", customername);
+        map.put("customerphone", customerphone);
+        map.put("customerlevel", customerlevel);
+        map.put("begintime", begintime);
+        map.put("endtime", endtime);
+        map.put("pageindex", pageindex);
+        map.put("pagesize", pagesize);
+        map.put("cusempname", cusempname); // 这个字段是什么 ？？
+        String data = getJsonFromMap(map);
+        String ts = String.valueOf(System.currentTimeMillis());
+        String sign = getSign("pcvlist", PC, ts, data, KEY);
+        if(Config.isDebug)
+        Log.i(LOG_TAG,"[请求数据]   [sign] "+sign+"   [ts] "+ts+"   [data] "+data);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("data", data);
+        return requestParams;
+    }
+
+
+    //意向客户跟进过程请求
+    public static RequestParams getPc(String customerID) {
+        RequestParams requestParams = new RequestParams();
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = "{\"CustomerID\":\"" + customerID + "\"}";
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("data", data);
+        requestParams.addBodyParameter("sign", getSign("pc", PC, ts, data, KEY));
+        return requestParams;
+    }
+
+    //回访请求
+    public static RequestParams getVisit(String customerID, String empID, String talkProcess,
+                                         String intentLevel, String isSuccess, String failBackType,
+                                         String bakDateTime, String failType, String otherBrandName,
+                                         String otherSeriesName, String isSubscribe, String quoteSituation,
+                                         String subscribeDate, String remark) {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("CustomerID", customerID);
+        data.put("EmpID", empID);
+        data.put("TalkProcess", talkProcess);
+        data.put("IntentLevel", intentLevel);
+        data.put("IsSuccess", isSuccess);
+        data.put("FailBackType", failBackType);
+        data.put("BackDateTime", bakDateTime);
+        data.put("FailType", failType);
+        data.put("OtherBrandName", otherBrandName);
+        data.put("OtherSeriesName", otherSeriesName);
+        data.put("IsSubscribe", isSubscribe);
+        data.put("QuoteSituation", quoteSituation);
+        data.put("SubscribeDate", subscribeDate);
+        data.put("Remark", remark);
+
+        String dataStr = getJsonFromMap(data);
+        String ts = String.valueOf(System.currentTimeMillis());
+        String sign = getSign("visit", PC, ts, dataStr, KEY);//这里和文档不一样
+        if(Config.isDebug)
+        Log.i(LOG_TAG,"[提交的数据] [data]"+dataStr+"  [pc]"+PC+"   [ts]"+ts+"   [sign]"+sign+"  [key]"+KEY);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("data", dataStr);
+        requestParams.addBodyParameter("sign", sign);
+        return requestParams;
+    }
+
+
+    //文件上传请求    -->文件上传有问题  没有data部分  MD5([projectCode] + [timestamp] + [key]).ToUpper
+    public static RequestParams getUploadFile(String callFollowID, String timeInt, File file) {
+        RequestParams requestParams = new RequestParams();
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String sign = getSign("uploadfile", PC, ts, "", KEY);
+
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("timeInt", timeInt);
+        requestParams.addBodyParameter("CallFollowID", callFollowID);
+        requestParams.addBodyParameter("recodeing", file);
+        return requestParams;
+    }
+
+
+    //线索列表接口
+    public static RequestParams getClueList(String empId, String clueName, String cluePhone,
+                                            String isExpiry, String begintime, String endtime,
+                                            String pageindex, String pagesize, String cusempname) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("empid", empId);
+        map.put("clueName", clueName);
+        map.put("cluePhone", cluePhone);
+        map.put("isExpiry", isExpiry);
+        map.put("begintime", begintime);
+        map.put("endtime", endtime);
+        map.put("pageindex", pageindex);
+        map.put("pagesize", pagesize);
+        map.put("cusempname", cusempname);
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = getJsonFromMap(map);
+        String sign = getSign("cluelist", PC, ts, data, KEY);
+        /**
+         * requestParams.addBodyParameter("pc", PC);
+         requestParams.addBodyParameter("sign", sign);
+         requestParams.addBodyParameter("ts", ts);
+         requestParams.addBodyParameter("data", data);
+         */
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("data", data);
+        if(Config.isDebug)
+        Log.i(LOG_TAG,"[请求的数据] [data]"+data+"  [sign]"+sign+"   [ts]"+ts+"  [pc]"+PC+"  [key]"+KEY);
+        return requestParams;
+    }
+
+    //线索明细
+    public static RequestParams getClue(String clueID) {
+        RequestParams requestParams = new RequestParams();
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = "{\"clueID\":\"" + clueID + "\"}";
+        String sign = getSign("clue", PC, ts, data, KEY);
+
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("data", data);
+        return requestParams;
+    }
+
+
+    //线索跟踪接口
+    public static RequestParams getCvisit(String clueID, String empID, String talkProcess, String intentLevel,
+                                          String isSuccess, String failBackType, String backDateTime, String failType,
+                                          String otherBrandName, String otherSeriesName, String isSubscribe, String SubscribeDate,
+                                          String Remark) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("clueID", clueID);
+        map.put("empID", empID);
+        map.put("talkProcess", talkProcess);
+        map.put("intentLevel", intentLevel);
+        map.put("isSuccess", isSuccess);
+        map.put("failBackType", failBackType);
+        map.put("backDateTime", backDateTime);
+        map.put("failType", failType);
+        map.put("otherBrandName", otherBrandName);
+        map.put("otherSeriesName", otherSeriesName);
+        map.put("isSubscribe", isSubscribe);
+        map.put("SubscribeDate", SubscribeDate);
+        map.put("Remark", Remark);
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = getJsonFromMap(map);
+        String sign = getSign("cvisit", PC, ts, data, KEY);
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("data", data);
+        if(Config.isDebug)
+        Log.i(LOG_TAG,"[提交的数据]  [data] "+data+"   [ts]"+ts+"   [sign]"+sign);
+        return requestParams;
+    }
+
+
+    //补全客户
+    public static RequestParams getCpCustomerList(String empId, String clueName, String cluePhone,
+                                                  String begintime, String endtime, int pageindex, int pagesize, String isSuppleState, String Recempname) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("empid", empId);
+        map.put("customerName", clueName);
+        map.put("customerPhone", cluePhone);
+        map.put("begintime", begintime);
+        map.put("endtime", endtime);
+        map.put("pageindex", pageindex + "");
+        map.put("pagesize", pagesize + "");
+        map.put("Recempname", Recempname);
+        map.put("IsSuppleState", isSuppleState);
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = getJsonFromMap(map);
+        String sign = getSign("pcinfolist", PC, ts, data, KEY);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("data", data);
+
+        return requestParams;
+    }
+
+
+    //补全客户
+    public static RequestParams saveCpCustomer(String empId, CpCustomer cpCustomer
+    ) {
+        Log.d("cpcustomer", cpCustomer.toString());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("empID", empId);
+        map.put("reciveComeID", cpCustomer.getSourceChannelId());
+        map.put("customerName", cpCustomer.getCustomerName());
+        //   map.put("customerPhone", cpCustomer.getReciveComeId());
+        map.put("customerPhone", cpCustomer.getCustomerPhone());
+        map.put("liveProvince", cpCustomer.getLiveProvince());
+        map.put("liveCity", cpCustomer.getLiveCity());
+        map.put("liveArea", cpCustomer.getLiveArea());
+        map.put("channelId", cpCustomer.getChannelId());
+        //  map.put("sourceChannelId", cpCustomer.getReciveComeId());
+        map.put("sourceChannelId", cpCustomer.getSourceChannelId());
+        map.put("oldCusCarNO", cpCustomer.getOldCusCarNO());
+        map.put("isDrive", cpCustomer.getIsDrive());
+        map.put("followPeo", cpCustomer.getFollowPeo());
+        map.put("intentLevel", cpCustomer.getIntentLevel());
+        // map.put("carSeriesName", cpCustomer.getCarSeriesName());
+        map.put("carSeriesName", "D50");
+        map.put("carModelName", cpCustomer.getCarModelName());
+        map.put("carColor", cpCustomer.getCarColor());
+        map.put("UseageID", cpCustomer.getUseageID());
+        map.put("IsChange", cpCustomer.getIsChange());
+        map.put("FocusCarmodelID", cpCustomer.getFocusCarmodelID());
+        map.put("TalkProcess", cpCustomer.getTalkProcess());
+
+
+//        map.put("empID", "1");
+//        map.put("reciveComeID", "3232");
+//        map.put("customerName", "徐先生");
+//        map.put("customerPhone", "18093977713");
+//        map.put("liveProvince", "四川省");
+//        map.put("liveCity", "成都市");
+//        map.put("liveArea", "金牛区");
+//        map.put("channelId", "66");
+//        map.put("sourceChannelId", "0");
+//        map.put("oldCusCarNO", "京FH0035");
+//        map.put("isDrive", "true");
+//        map.put("followPeo", "3");
+//        map.put("intentLevel", "A");
+//        map.put("carSeriesName", "D50");
+//        map.put("carModelName", "Ddsads");
+//        map.put("carColor", "白");
+//        map.put("UseageID", "1");
+//        map.put("IsChange", "新购");
+//        map.put("FocusCarmodelID", "3&5&6");
+//        map.put("TalkProcess", "ssssss");
+
+        String ts = String.valueOf(System.currentTimeMillis());
+        String data = getJsonFromMap(map);
+        String sign = getSign("pcinfosave", PC, ts, data, KEY);
+        Log.d("sign", sign);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.addBodyParameter("pc", PC);
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("sign", sign);
+        requestParams.addBodyParameter("data", data);
+
+        return requestParams;
+    }
+
+
+    //补全客户
+    public static RequestParams getVersonCode() {
+        String ts = String.valueOf(System.currentTimeMillis());
+        String sign = getSign("ver", PC, ts, KEY);
+        RequestParams requestParams = new RequestParams();
+        //  requestParams.addBodyParameter("type", "ver");
+        //   requestParams.addBodyParameter("pc", PC);
+        Log.d("sss", "sign");
+        requestParams.addBodyParameter("ts", ts);
+        requestParams.addBodyParameter("sign", sign);
+        return requestParams;
+    }
+
+
+    private static String getJsonFromMap(Map<String, String> data) {
+        String result = "{";
+        Set<Map.Entry<String, String>> entries = data.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            result += "\"" + entry.getKey() + "\":" + "\"" + entry.getValue() + "\",";
+        }
+        result = result.endsWith(",") ? result.substring(0, result.length() - 1) : result;
+        return result + "}";
+    }
+
+    private static String getJsonFromMap(Map<String, String> data, boolean flag) {
+        String result = "{";
+        Set<Map.Entry<String, String>> entries = data.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            result += "'" + entry.getKey() + "':" + "'" + entry.getValue() + "',";
+        }
+        result = result.endsWith(",") ? result.substring(0, result.length() - 1) : result;
+        return result + "}";
+    }
+
+    public static String getSign(String type, String pc, String time, String data, String key) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(type);
+        sb.append(pc);
+        sb.append(time);
+        sb.append(data);
+        sb.append(key);
+        return md5Code(sb.toString()).toUpperCase();
+    }
+
+    public static String getSign(String type, String pc, String time, String key) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(type);
+        sb.append(pc);
+        sb.append(time);
+        sb.append(key);
+        return md5Code(sb.toString()).toUpperCase();
+    }
+
+    private static String md5Code(String before) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            byte[] hash = digest.digest(before.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                if ((b & 0xFF) < 0x10) hex.append("0");
+                hex.append(Integer.toHexString(b & 0xFF));
+            }
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String sha1Code(String before) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            byte[] hash = digest.digest(before.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                if ((b & 0xFF) < 0x10) hex.append("0");
+                hex.append(Integer.toHexString(b & 0xFF));
+            }
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+}

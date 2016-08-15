@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="28dp"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/fragment_customersinfo_fouces_item_cb"
+        android:layout_width="34dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/pingpaitexin_selector"
+        android:button="@null"
+        android:clickable="false" />
+
+    <TextView
+        android:id="@+id/fragment_customersinfo_fouces_item_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="品牌"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+</LinearLayout>
