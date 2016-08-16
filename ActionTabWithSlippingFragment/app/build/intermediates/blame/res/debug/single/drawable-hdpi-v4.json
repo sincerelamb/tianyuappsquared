@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\exit_hover.png",
+        "source": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\src\\main\\res\\drawable-hdpi\\exit_hover.png"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\exit.png",
+        "source": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\src\\main\\res\\drawable-hdpi\\exit.png"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\exit_selector.xml",
+        "source": "D:\\newappwork12\\tianyuappsquared\\ActionTabWithSlippingFragment\\app\\src\\main\\res\\drawable-hdpi\\exit_selector.xml"
+    }
+]

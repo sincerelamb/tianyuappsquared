@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#0084cf"
+            android:gravity="center"
+            android:text="销售漏斗"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+         <ImageView
+            android:id="@+id/android_funnel_exit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/exit_selector" />
+    </RelativeLayout>
+    
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/top"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </android.support.v4.view.ViewPager>
+</RelativeLayout>
