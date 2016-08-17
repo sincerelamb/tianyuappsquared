@@ -1,0 +1,353 @@
+[
+    {
+        "outputFile": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 58,
+                    "endOffset": 109
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\colors.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 58,
+                        "endOffset": 109
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 739,
+                    "endColumn": 57,
+                    "endOffset": 792
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 89,
+                        "endColumn": 57,
+                        "endOffset": 142
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 797,
+                    "endColumn": 55,
+                    "endOffset": 848
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 147,
+                        "endColumn": 55,
+                        "endOffset": 198
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 853,
+                    "endColumn": 45,
+                    "endOffset": 894
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 184,
+                        "endColumn": 45,
+                        "endOffset": 225
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 899,
+                    "endColumn": 45,
+                    "endOffset": 940
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 281,
+                        "endColumn": 45,
+                        "endOffset": 322
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 945,
+                    "endColumn": 50,
+                    "endOffset": 991
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 230,
+                        "endColumn": 50,
+                        "endOffset": 276
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 996,
+                    "endColumn": 44,
+                    "endOffset": 1036
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 374,
+                        "endColumn": 44,
+                        "endOffset": 414
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 1041,
+                    "endColumn": 42,
+                    "endOffset": 1079
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 141,
+                        "endColumn": 42,
+                        "endOffset": 179
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1084,
+                    "endColumn": 44,
+                    "endOffset": 1124
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 96,
+                        "endColumn": 44,
+                        "endOffset": 136
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1129,
+                    "endColumn": 46,
+                    "endOffset": 1171
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 327,
+                        "endColumn": 46,
+                        "endOffset": 369
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1176,
+                    "endColumn": 39,
+                    "endOffset": 1211
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 39,
+                        "endOffset": 91
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1216,
+                    "endColumn": 48,
+                    "endOffset": 1260
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 468,
+                        "endColumn": 48,
+                        "endOffset": 512
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1265,
+                    "endColumn": 48,
+                    "endOffset": 1309
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 419,
+                        "endColumn": 48,
+                        "endOffset": 463
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1314,
+                    "endColumn": 41,
+                    "endOffset": 1351
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 566,
+                        "endColumn": 41,
+                        "endOffset": 603
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1356,
+                    "endColumn": 48,
+                    "endOffset": 1400
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 608,
+                        "endColumn": 48,
+                        "endOffset": 652
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1405,
+                    "endColumn": 48,
+                    "endOffset": 1449
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 517,
+                        "endColumn": 48,
+                        "endOffset": 561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1454,
+                    "endLine": 25,
+                    "endColumn": 12,
+                    "endOffset": 1740
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 186,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 472
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1745,
+                    "endLine": 28,
+                    "endColumn": 12,
+                    "endOffset": 1900
+                },
+                "from": {
+                    "file": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 510,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 665
+                    }
+                }
+            }
+        ]
+    }
+]

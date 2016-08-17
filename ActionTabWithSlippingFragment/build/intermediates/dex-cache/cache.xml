@@ -1,3 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="D:\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_da7f6d4a2578328f7d18a9b32b1daa8a6a532adf.jar" />
+    </item>
+    <item
+        jar="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ffeaae382527a3f5e6d4193f19231398596bc6d5">
+        <dex dex="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\intermediates\pre-dexed\debug\instant-run_af031e43deed93d134f92c2973d9020372e23260.jar" />
+    </item>
+    <item
+        jar="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="561b865f2de2b824aed4d2c20cae3aba0069405f">
+        <dex dex="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_164f639ed415e738c17a9896cbf19450efaf000f.jar" />
+    </item>
+
+</items>

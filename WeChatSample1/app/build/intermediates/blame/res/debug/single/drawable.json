@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\exit_selector.xml",
+        "source": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\drawable\\exit_selector.xml"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\exit.png",
+        "source": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\drawable\\exit.png"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_tab.xml",
+        "source": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\drawable\\background_tab.xml"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\exit_hover.png",
+        "source": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\drawable\\exit_hover.png"
+    },
+    {
+        "merged": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\actionbar_bg_selector.xml",
+        "source": "D:\\newappwork12\\tianyuappsquared\\WeChatSample1\\app\\src\\main\\res\\drawable\\actionbar_bg_selector.xml"
+    }
+]

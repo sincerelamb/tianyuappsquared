@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="armeabi-v7a,armeabi"
-    api-level="18"
-    density="xhdpi"
+    api-level="19"
+    density="hdpi"
     format="7"
-    timestamp="8306291113788" >
+    timestamp="98294434068953" >
 
     <task
         name="javac"
@@ -19,14 +19,6 @@
         name="verifier"
         duration="0" />
 
-    <artifact
-        location="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
-
-    <build timestamp="8306291113788" >
-        <artifact
-            location="D:\newappwork12\tianyuappsquared\ActionTabWithSlippingFragment\app\build\outputs\apk\app-debug.apk"
-            type="MAIN" />
-    </build>
+    <build timestamp="98294434068953" />
 
 </instant-run>
